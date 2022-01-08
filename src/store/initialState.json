@@ -1,13 +1,4 @@
 {
-  "firstName": null,
-  "lastName": null,
-  "eMail": null,
-  "phoneNumber": null,
-  "addressFrom": null,
-  "addressTo": null,
-  "floorSpace": 0,
-  "secondarySpace": 0,
-  "bulkyItems": null,
   "numberOfBulkyItems": 0,
   "requirePackagingHelp": false
 }
