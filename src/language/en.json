@@ -11,7 +11,7 @@
   "addressTo": "Till vilken adress ska du flytta?",
   "addressPlaceholder": "Adress, Postnummer, Stad",
   "specificationFloorSpaceInSqMeter": "Bostadens yta i kvm",
-  "specificationFloorSpaceTooSmallWarn": "Bostadens yta måste vara minst 1 kvm",
+  "specificationFloorSpaceTooSmallWarn": "Floor space needs to be at least 1 sqm",
   "specificationSecondarySpaceInSqMeter": "Eventuell biyta, vind, förråd, etc. i kvm",
   "specificationBulkyItems": "Eventuella skrymmande saker så som piano etc.?",
   "specificationRequirePackagingHelp": "Behövs packhjälp?",

@@ -2,17 +2,17 @@ import { createContext, useState, FunctionComponent, useContext } from 'react';
 import initialState from './initialState.json';
 
 interface State {
-  firstName: string | null;
-  lastName: string | null;
-  eMail: string | null;
-  phoneNumber: string | null;
-  addressFrom: string | null;
-  addressTo: string | null;
-  floorSpace: number;
-  secondarySpace: number;
-  bulkyItems: string | null;
-  numberOfBulkyItems: number;
-  requirePackagingHelp: boolean;
+  firstName?: string;
+  lastName?: string;
+  eMail?: string;
+  phoneNumber?: string;
+  addressFrom?: string;
+  addressTo?: string;
+  floorSpace?: number;
+  secondarySpace?: number;
+  bulkyItems?: string;
+  numberOfBulkyItems?: number;
+  requirePackagingHelp?: boolean;
 }
 
 type StateContext = [State, React.Dispatch<React.SetStateAction<State>>];
