@@ -1,0 +1,20 @@
+{
+  "formTitle": "Offertförfrågan för bohagsflytt",
+  "contacts": "Kontaktuppgifter",
+  "address": "Adressuppgifter",
+  "moveSpecifications": "Flyttuppgifter",
+  "contactFirstName": "Förnamn",
+  "contactLastName": "Efternamn",
+  "contactEMail": "E-Post",
+  "contactPhoneNumber": "Mobilnumber",
+  "addressFrom": "Från vilken adress ska du flytta?",
+  "addressTo": "Till vilken adress ska du flytta?",
+  "addressPlaceholder": "Adress, Postnummer, Stad",
+  "specificationFloorSpaceInSqMeter": "Bostadens yta i kvm",
+  "specificationSecondarySpaceInSqMeter": "Eventuell biyta, vind, förråd, etc. i kvm",
+  "specificationNumberOfBulkyItems": "Eventuella skrymmande saker så som piano etc.?",
+  "specificationRequirePackagingHelp": "Behövs packhjälp?",
+  "yes": "Ja",
+  "no": "Nej",
+  "formSubmit": "Skicka in offertförfrågan"
+}
