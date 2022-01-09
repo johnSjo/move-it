@@ -11,11 +11,15 @@ export enum AddressField {
   TO = 'addressTo',
 }
 
+export interface OnAddressChangeHandlerConfig {
+  [key: string]: string;
+}
+
 const AddressSection = () => {
   const [distance, setDistance] = useState<string | null>(null);
   const [routeWarn, setRouteWarn] = useState<string | null>(null);
   const [findingRoute, setFindingRoute] = useState(false);
-  const [_state, setState] = useStore();
+  const [state, setState] = useStore();
   const { jsApiLoader, directionRouteOptions, onAddressChangeDebouncedDelay } = getSettings();
   const { isLoaded } = useJsApiLoader({
     ...jsApiLoader,
@@ -23,7 +27,6 @@ const AddressSection = () => {
   });
   const onAddressChange = async ({ addressFrom, addressTo }: State) => {
     if (!addressFrom || !addressTo) return;
-
     const directionsService = new google.maps.DirectionsService();
 
     await directionsService
@@ -54,13 +57,16 @@ const AddressSection = () => {
     setFindingRoute(false);
   };
   const debouncedOnAddressChange = useCallback(debounce(onAddressChange, onAddressChangeDebouncedDelay), []);
-  const onAddressChangeHandler = (state: State) => {
+  const onAddressChangeHandler = (newAddress: OnAddressChangeHandlerConfig) => {
+    const newState = { ...state, ...newAddress };
     setDistance(null);
     setRouteWarn(null);
 
-    if (state.addressFrom && state.addressTo) setFindingRoute(true);
+    console.log(newAddress);
 
-    debouncedOnAddressChange(state);
+    if (newState.addressFrom && newState.addressTo) setFindingRoute(true);
+
+    debouncedOnAddressChange(newState);
   };
 
   if (!isLoaded) return <div>{getText(LanguageResourceIds.WAITING_FOR_GOOGLE_API)}</div>;

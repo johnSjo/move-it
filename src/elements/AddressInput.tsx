@@ -1,6 +1,6 @@
 import { Autocomplete } from '@react-google-maps/api';
 import { ChangeEvent } from 'react';
-import { AddressField } from '../components/AddressSection';
+import { AddressField, OnAddressChangeHandlerConfig } from '../components/AddressSection';
 import { getSettings, useStore } from '../store/Store';
 import { State } from '../store/Types';
 import { getText, LanguageResourceIds } from '../utils/Text';
@@ -9,29 +9,29 @@ interface AddressInputConfig {
   readonly id: AddressField;
   readonly labelId: LanguageResourceIds;
   readonly placeholderId: LanguageResourceIds;
-  readonly onAddressChange: (state: State) => void;
+    readonly onAddressChange: (config: OnAddressChangeHandlerConfig) => void;
 }
 
-const AddressInput = ({ id, labelId, placeholderId, onAddressChange }: AddressInputConfig) => {
+const AddressInput = ({
+  id,
+  labelId,
+   onAddressChange,
+  placeholderId,
+}: 
+AddressInputConfig) => {
   const [state, setState] = useStore();
   const { options: autocompleteOptions, restrictions: autocompleteRestrictions } = getSettings().autocomplete;
 
-  const onAddressFromChange = ({ currentTarget: { value } }: ChangeEvent<HTMLInputElement>) =>
-    setState((prevState) => {
-      const newState = { ...prevState, [id]: value };
-      onAddressChange(newState);
-
-      return newState;
-    });
+  const onAddressFromChange = ({ currentTarget: { value } }: ChangeEvent<HTMLInputElement>) => {
+    setState((prevState) => ({ ...prevState, [id]: value }));
+    onAddressChange({[id]: value});
+  };
 
   const onAddressFromPlaceChanged = () => {
     const input = document.getElementById(id) as HTMLInputElement;
-    setState((prevState) => {
-      const newState = { ...prevState, [id]: input.value };
-      onAddressChange(newState);
-
-      return newState;
-    });
+    setState((prevState) => ({ ...prevState, [id]: input.value }));
+    onAddressChange({[id]: input.value});
+    console.log(input.value);
   };
 
   return (
