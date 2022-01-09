@@ -5,6 +5,10 @@ export type AddressFieldTypes = {
   [key in AddressField]?: string;
 };
 
+export type RateResponse = {
+  readonly rate: number;
+};
+
 export interface State extends AddressFieldTypes {
   firstName?: string;
   lastName?: string;
@@ -16,7 +20,10 @@ export interface State extends AddressFieldTypes {
   numberOfBulkyItems?: number;
   requirePackagingHelp?: boolean;
   routeDistance?: number;
+  rate?:number;
 }
+
+export interface ValidatedState extends Required<Omit<State, 'bulkyItems'>> {}
 
 export type StateContext = [State, React.Dispatch<React.SetStateAction<State>>];
 
