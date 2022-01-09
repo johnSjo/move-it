@@ -1,21 +1,7 @@
-import { createContext, useState, FunctionComponent, useContext } from 'react';
+import { createContext, FunctionComponent, useContext, useState } from 'react';
 import initialState from './initialState.json';
-
-interface State {
-  firstName?: string;
-  lastName?: string;
-  eMail?: string;
-  phoneNumber?: string;
-  addressFrom?: string;
-  addressTo?: string;
-  floorSpace?: number;
-  secondarySpace?: number;
-  bulkyItems?: string;
-  numberOfBulkyItems?: number;
-  requirePackagingHelp?: boolean;
-}
-
-type StateContext = [State, React.Dispatch<React.SetStateAction<State>>];
+import settings from './settings.json';
+import { Settings, State, StateContext } from './Types';
 
 const Context = createContext<StateContext | undefined>(undefined);
 
@@ -33,4 +19,8 @@ export function useStore() {
   if (!context) throw new Error(`Store:: store context not created or used outside of the StoreProvider`);
 
   return context;
+}
+
+export function getSettings() {
+  return settings as Settings;
 }

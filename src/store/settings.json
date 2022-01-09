@@ -1,0 +1,14 @@
+{
+  "autocomplete": {
+    "options": { "types": ["address"] },
+    "restrictions": { "country": "se" }
+  },
+  "jsApiLoader": {
+    "libraries": ["places"],
+    "id": "google-map-script"
+  },
+  "directionRouteOptions": {
+    "travelMode": "DRIVING"
+  },
+  "onAddressChangeDebouncedDelay": 1000
+}

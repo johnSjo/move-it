@@ -17,5 +17,7 @@
   "specificationRequirePackagingHelp": "Is packaging help needed?",
   "yes": "Yes",
   "no": "No",
-  "formSubmit": "Submit"
+  "formSubmit": "Submit",
+  "waitingForGoogleAPI": "Waiting for GoogleAPI to load",
+  "routeNotFound": "Route not found, try to adjust your addresses"
 }

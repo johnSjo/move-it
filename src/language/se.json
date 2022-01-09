@@ -17,5 +17,7 @@
   "specificationRequirePackagingHelp": "Behövs packhjälp?",
   "yes": "Ja",
   "no": "Nej",
-  "formSubmit": "Skicka in offertförfrågan"
+  "formSubmit": "Skicka in offertförfrågan",
+  "waitingForGoogleAPI": "Väntar på att GoogleAPI ska ladda",
+  "routeNotFound": "Ingen giltig väg hittades, pröva att justera dina adresser"
 }
