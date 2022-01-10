@@ -1,0 +1,11 @@
+.header {
+  text-transform: uppercase;
+}
+
+.header img {
+  margin: -10px
+}
+
+label {
+    text-transform: uppercase;
+  }

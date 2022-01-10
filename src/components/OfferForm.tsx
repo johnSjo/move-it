@@ -1,6 +1,8 @@
 import { SyntheticEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { RoutePath } from '../App';
 import { useStore } from '../store/Store';
-import { RateResponse, State, ValidatedState } from '../store/Types';
+import { createRateApiConfigString, fetchRate } from '../utils/RateAPI';
 import { getText, LanguageResourceIds } from '../utils/Text';
 import { createValidatedState } from '../utils/Validation';
 import AddressSection from './AddressSection';
@@ -10,6 +12,7 @@ import SpecificationSection from './SpecificationSection';
 
 const OfferForm = () => {
   const [state, setState] = useStore();
+  const navigate = useNavigate();
   const onSubmitHandler = async (event: SyntheticEvent) => {
     console.log('FORM_SUBMIT');
     event.preventDefault();
@@ -23,27 +26,8 @@ const OfferForm = () => {
       const { rate } = await fetchRate(rateApiConfig);
 
       setState((prevState) => ({ ...prevState, ...validatedState, rate }));
+      navigate(RoutePath.OFFER);
     }
-  };
-
-  function createRateApiConfigString({ routeDistance, floorSpace, secondarySpace, numberOfBulkyItems }: ValidatedState) {
-    // TODO: question: the 'piano' option in the API is a boolean but it the UI sketch it looks like you should be able to
-    // input several items -> which is correct?
-    return [
-      `distance=${routeDistance * 0.001}&`,
-      `ordinaryVolume=${floorSpace}&`,
-      `atticVolume=${secondarySpace}&`,
-      `piano=${numberOfBulkyItems > 0 ? 'true' : 'false'}`,
-    ].join('');
-  }
-
-  const fetchRate = async (config: string) => {
-    console.log(config);
-    const result = await fetch(`https://moveitcaseapi.azurewebsites.net/api/Rate?${config}`);
-    const data = await result.json();
-
-    console.log(data);
-    return data as RateResponse;
   };
 
   return (

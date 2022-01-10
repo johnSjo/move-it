@@ -2,6 +2,7 @@ import language from '../language/se.json';
 
 export enum LanguageResourceIds {
   FORM_TITLE = 'formTitle',
+  OFFER_TITLE = 'offerTitle',
   CONTACTS = 'contacts',
   ADDRESS = 'address',
   MOVE_SPECIFICATIONS = 'moveSpecifications',
@@ -20,8 +21,8 @@ export enum LanguageResourceIds {
   YES = 'yes',
   NO = 'no',
   FORM_SUBMIT = 'formSubmit',
-  WAITING_FOR_GOOGLE_API='waitingForGoogleAPI',
-  ROUTE_NOT_FOUND='routeNotFound',
+  WAITING_FOR_GOOGLE_API = 'waitingForGoogleAPI',
+  ROUTE_NOT_FOUND = 'routeNotFound',
 }
 
 export function getText(id: LanguageResourceIds) {
