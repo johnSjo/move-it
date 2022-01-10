@@ -1,13 +1,15 @@
 import { SyntheticEvent } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { RoutePath } from '../App';
-import { formatCurrency, getSettings, useStore } from '../store/Store';
+import SectionHeader from '../elements/SectionHeader';
+import { formatCurrency, useStore } from '../store/Store';
+import { State } from '../store/Types';
 import { createRateApiConfigString, fetchRate } from '../utils/RateAPI';
 import { getText, LanguageResourceIds } from '../utils/Text';
+import { addOfferToMockBackend } from '../utils/MockBackend';
 import { createValidatedState } from '../utils/Validation';
 import AddressSection from './AddressSection';
 import ContactSection from './ContactSection';
-import SectionHeader from '../elements/SectionHeader';
 import SpecificationSection from './SpecificationSection';
 
 const OfferForm = () => {
@@ -25,15 +27,10 @@ const OfferForm = () => {
     if (validatedState) {
       const rateApiConfig = createRateApiConfigString(validatedState);
       const { rate } = await fetchRate(rateApiConfig);
-      const offerId = Math.floor(Math.random() * 90000 + 10000); // NOTE: should come from backend
+      const newState = (await addOfferToMockBackend({ ...state, ...validatedState, rate: formatCurrency(rate) })) as State;
 
-      setState((prevState) => ({
-        ...prevState,
-        ...validatedState,
-        rate: formatCurrency(rate),
-        id: offerId,
-      }));
-      navigate(`${RoutePath.OFFER}/${offerId}`);
+      setState(newState);
+      navigate(`${RoutePath.OFFER}/${newState.id}`);
     }
   };
 

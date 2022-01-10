@@ -11,6 +11,7 @@
     "@types/node": "^16.11.19",
     "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.11",
+    "json-server": "^0.17.0",
     "lodash": "^4.17.21",
     "prettier": "^2.5.1",
     "react": "^17.0.2",
@@ -29,6 +30,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "server": "json-server --watch db.json --port 5000",
     "pretty": "prettier --config '/Users/john/webroot/tools/vs code Prettier config/.prettierrc' --write \"./**/*.{ts,tsx,json}\""
   },
   "eslintConfig": {

@@ -1,17 +1,33 @@
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { RoutePath } from '../App';
 import SectionHeader from '../elements/SectionHeader';
 import { useStore } from '../store/Store';
+import { getOfferFromMockBackend } from '../utils/MockBackend';
 import { getText, LanguageResourceIds } from '../utils/Text';
 
 const PriceInformation = () => {
-  const [state] = useStore();
+  const [state, setState] = useStore();
+  const params = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
+    const getOffer = async (id: string) => {
+      const offer = await getOfferFromMockBackend(id);
+
+      if (offer.id) {
+        setState(offer);
+      } else {
+        navigate(RoutePath.ROOT);
+      }
+    };
+
     if (!state.id) {
-      navigate(RoutePath.ROOT);
+      if (params.offerId) {
+        getOffer(params.offerId);
+      } else {
+        navigate(RoutePath.ROOT);
+      }
     }
   });
 
