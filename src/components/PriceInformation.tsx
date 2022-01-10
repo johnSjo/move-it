@@ -1,10 +1,20 @@
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { RoutePath } from '../App';
 import SectionHeader from '../elements/SectionHeader';
 import { useStore } from '../store/Store';
 import { getText, LanguageResourceIds } from '../utils/Text';
 
 const PriceInformation = () => {
   const [state] = useStore();
-  // TODO: if rate not available -> re-route back to root
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!state.id) {
+      navigate(RoutePath.ROOT);
+    }
+  });
+
   return (
     <form>
       <SectionHeader index={0} title={LanguageResourceIds.PRICE_INFORMATION} />

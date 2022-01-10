@@ -1,13 +1,15 @@
-import { Route, Routes } from 'react-router-dom';
+import { Outlet, Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
 import OfferForm from './components/OfferForm';
+import OfferSummary from './components/OfferSummary';
 import PriceInformation from './components/PriceInformation';
+import Title from './elements/Title';
 import StoreProvider from './store/Store';
-import { getText, LanguageResourceIds } from './utils/Text';
+import { LanguageResourceIds } from './utils/Text';
 
 export enum RoutePath {
   ROOT = '/',
-  OFFER = '/offer',
+  OFFER = 'offer',
 }
 
 function App() {
@@ -19,19 +21,29 @@ function App() {
           path={RoutePath.ROOT}
           element={
             <>
-              <h1>{getText(LanguageResourceIds.FORM_TITLE)}</h1>
+              <Title id={LanguageResourceIds.FORM_TITLE} />
               <OfferForm />
             </>
           }
         ></Route>
+        <Route path={RoutePath.OFFER} element={<Outlet />}>
+          <Route
+            path=':offerId'
+            element={
+              <>
+                <Title id={LanguageResourceIds.OFFER_TITLE} />
+                <OfferSummary />
+                <PriceInformation />
+              </>
+            }
+          ></Route>
+        </Route>
         <Route
-          path={RoutePath.OFFER}
+          path='*'
           element={
-            <>
-              <h1>{getText(LanguageResourceIds.OFFER_TITLE)}</h1>
-              <OfferForm />
-              <PriceInformation />
-            </>
+            <main style={{ padding: '1rem' }}>
+              <p>There's nothing here!</p>
+            </main>
           }
         ></Route>
       </Routes>

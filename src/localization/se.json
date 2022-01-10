@@ -30,7 +30,9 @@
     "questionsContact": "Vid frågor kontakta",
     "moveItEMail": "flytt@move-it.se",
     "reopenOffer": "För att se offerten igen klicka här:",
-    "approveOffer": "Godkänn offert"
+    "approveOffer": "Godkänn offert",
+    "sqm": "kvm",
+    "changeData": "Ändra uppgifter"
   },
   "settings": {
     "autocomplete": {

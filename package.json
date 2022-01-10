@@ -12,6 +12,7 @@
     "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.11",
     "lodash": "^4.17.21",
+    "prettier": "^2.5.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router-dom": "^6.2.1",
@@ -27,7 +28,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "pretty": "prettier --config '/Users/john/webroot/tools/vs code Prettier config/.prettierrc' --write \"./**/*.{ts,tsx,json}\""
   },
   "eslintConfig": {
     "extends": [

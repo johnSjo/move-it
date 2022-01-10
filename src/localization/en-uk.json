@@ -29,7 +29,9 @@
     "questionsContact": "For questions contact",
     "moveItEMail": "move@move-it.co.uk",
     "reopenOffer": "To view your offer again click here:",
-    "approveOffer": "Approve offer"
+    "approveOffer": "Approve offer",
+    "sqm": "sqm",
+    "changeData": "Change data"
   },
   "settings": {
     "autocomplete": {

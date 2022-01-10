@@ -30,28 +30,41 @@ const AddressSection = () => {
     const directionsService = new google.maps.DirectionsService();
 
     await directionsService
-      .route({ ...directionRouteOptions, origin: addressFrom, destination: addressTo }, (result, status) => {
-        if (status !== google.maps.DirectionsStatus.OK || !result) {
-          setRouteWarn(getText(LanguageResourceIds.ROUTE_NOT_FOUND));
-          setState((prevState) => ({ ...prevState, distance: undefined }));
-          return;
+      .route(
+        {
+          ...directionRouteOptions,
+          origin: addressFrom,
+          destination: addressTo,
+        },
+        (result, status) => {
+          if (status !== google.maps.DirectionsStatus.OK || !result) {
+            setRouteWarn(getText(LanguageResourceIds.ROUTE_NOT_FOUND));
+            setState((prevState) => ({ ...prevState, distance: undefined }));
+            return;
+          }
+
+          const { distance, start_address, end_address } = result.routes[0].legs[0];
+
+          // TODO: move these warnings to ui
+          if (start_address !== addressFrom) {
+            console.warn(
+              `Address from: ${addressFrom} is not the same as the start address google picked: ${start_address}`
+            );
+          }
+
+          if (end_address !== addressTo) {
+            console.warn(`Address to: ${addressTo} is not the same as the end address google picked: ${end_address}`);
+          }
+
+          setDistance(distance!.text);
+          setRouteWarn(null);
+          setState((prevState) => ({
+            ...prevState,
+            distance: distance?.value,
+            distanceText: distance!.text,
+          }));
         }
-
-        const { distance, start_address, end_address } = result.routes[0].legs[0];
-
-        // TODO: move these warnings to ui
-        if (start_address !== addressFrom) {
-          console.warn(`Address from: ${addressFrom} is not the same as the start address google picked: ${start_address}`);
-        }
-
-        if (end_address !== addressTo) {
-          console.warn(`Address to: ${addressTo} is not the same as the end address google picked: ${end_address}`);
-        }
-
-        setDistance(distance!.text);
-        setRouteWarn(null);
-        setState((prevState) => ({ ...prevState, distance: distance?.value, distanceText: distance!.text }));
-      })
+      )
       .catch(() => setRouteWarn(getText(LanguageResourceIds.ROUTE_NOT_FOUND)));
 
     setFindingRoute(false);

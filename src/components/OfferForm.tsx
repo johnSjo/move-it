@@ -1,7 +1,7 @@
 import { SyntheticEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { RoutePath } from '../App';
-import { getSettings, useStore } from '../store/Store';
+import { formatCurrency, getSettings, useStore } from '../store/Store';
 import { createRateApiConfigString, fetchRate } from '../utils/RateAPI';
 import { getText, LanguageResourceIds } from '../utils/Text';
 import { createValidatedState } from '../utils/Validation';
@@ -12,6 +12,7 @@ import SpecificationSection from './SpecificationSection';
 
 const OfferForm = () => {
   const [state, setState] = useStore();
+  const params = useParams();
   const navigate = useNavigate();
   const onSubmitHandler = async (event: SyntheticEvent) => {
     console.log('FORM_SUBMIT');
@@ -24,16 +25,19 @@ const OfferForm = () => {
     if (validatedState) {
       const rateApiConfig = createRateApiConfigString(validatedState);
       const { rate } = await fetchRate(rateApiConfig);
+      const offerId = Math.floor(Math.random() * 90000 + 10000); // NOTE: should come from backend
 
-      const { locales, options } = getSettings().currencyFormat;
-      const currencyFormatter = new Intl.NumberFormat(locales, options);
-
-      console.log(currencyFormatter.format(rate));
-
-      setState((prevState) => ({ ...prevState, ...validatedState, rate: currencyFormatter.format(rate) }));
-      navigate(RoutePath.OFFER);
+      setState((prevState) => ({
+        ...prevState,
+        ...validatedState,
+        rate: formatCurrency(rate),
+        id: offerId,
+      }));
+      navigate(`${RoutePath.OFFER}/${offerId}`);
     }
   };
+
+  console.log(params.offerId);
 
   return (
     <form onSubmit={onSubmitHandler}>

@@ -32,6 +32,8 @@ export enum LanguageResourceIds {
   MOVE_IT_EMAIL = 'moveItEMail',
   REOPEN_OFFER = 'reopenOffer',
   APPROVE_OFFER = 'approveOffer',
+  SQM = 'sqm',
+  CHANGE_DATA = 'changeData',
 }
 
 export function getText(id: LanguageResourceIds) {

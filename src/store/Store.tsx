@@ -31,3 +31,10 @@ export function getSettings() {
 export function getLanguage() {
   return localization.language;
 }
+
+const { locales, options } = getSettings().currencyFormat;
+const currencyFormatter = new Intl.NumberFormat(locales, options);
+
+export function formatCurrency(value: number) {
+  return currencyFormatter.format(value);
+}

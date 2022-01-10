@@ -3,13 +3,14 @@ import { useStore } from '../store/Store';
 import { getText, LanguageResourceIds } from '../utils/Text';
 import { countWords, removeLeadingZeros } from '../utils/Validation';
 
-const enum RequirePackaging {
+export const enum RequirePackaging {
   YES = 'yes',
   NO = 'no',
 }
 
 const SpecificationSection = () => {
-  const [{ floorSpace, secondarySpace, bulkyItems, numberOfBulkyItems, requirePackagingHelp }, setState] = useStore();
+  const [{ floorSpace, secondarySpace, bulkyItems, numberOfBulkyItems, requirePackagingHelp = false }, setState] =
+    useStore();
   const [showTooSmallFloorSpaceWarn, setShowTooSmallFloorSpaceWarn] = useState(false);
 
   const onFloorSpaceChange = ({ currentTarget: { value } }: ChangeEvent<HTMLInputElement>) => {
@@ -37,12 +38,18 @@ const SpecificationSection = () => {
     setState((prevState) => ({ ...prevState, secondarySpace }));
   };
 
-  const isRadioSelected = (value: boolean) => requirePackagingHelp === value;
   const handleRadioChange = ({ currentTarget: { value } }: ChangeEvent<HTMLInputElement>) =>
-    setState((prevState) => ({ ...prevState, requirePackagingHelp: value === RequirePackaging.YES }));
+    setState((prevState) => ({
+      ...prevState,
+      requirePackagingHelp: value === RequirePackaging.YES,
+    }));
 
   const onBulkyItemsChange = ({ currentTarget: { value } }: ChangeEvent<HTMLInputElement>) =>
-    setState((prevState) => ({ ...prevState, numberOfBulkyItems: countWords(value), bulkyItems: value }));
+    setState((prevState) => ({
+      ...prevState,
+      numberOfBulkyItems: countWords(value),
+      bulkyItems: value,
+    }));
 
   return (
     <div>
@@ -67,20 +74,26 @@ const SpecificationSection = () => {
       <input type='text' value={bulkyItems ?? ''} onChange={onBulkyItemsChange}></input>
       <span>{numberOfBulkyItems !== undefined && numberOfBulkyItems > 0 ? numberOfBulkyItems : ''}</span>
       <label>{getText(LanguageResourceIds.SPECIFICATION_REQUIRE_PACKAGING_HELP)}</label>
-      <input
-        type='radio'
-        name='require-packaging'
-        value={RequirePackaging.YES}
-        checked={isRadioSelected(true)}
-        onChange={handleRadioChange}
-      ></input>
-      <input
-        type='radio'
-        name='require-packaging'
-        value={RequirePackaging.NO}
-        checked={isRadioSelected(false)}
-        onChange={handleRadioChange}
-      ></input>
+      <div>
+        <span>{getText(LanguageResourceIds.YES)}</span>
+        <input
+          type='radio'
+          name='require-packaging'
+          value={RequirePackaging.YES}
+          checked={requirePackagingHelp}
+          onChange={handleRadioChange}
+        ></input>
+      </div>
+      <div>
+        <span>{getText(LanguageResourceIds.NO)}</span>
+        <input
+          type='radio'
+          name='require-packaging'
+          value={RequirePackaging.NO}
+          checked={!requirePackagingHelp}
+          onChange={handleRadioChange}
+        ></input>
+      </div>
     </div>
   );
 };

@@ -22,6 +22,7 @@ export interface State extends AddressFieldTypes {
   distance?: number;
   distanceText?: string;
   rate?: string;
+  id?: number;
 }
 
 export interface ValidatedState extends Required<Omit<State, 'bulkyItems'>> {}

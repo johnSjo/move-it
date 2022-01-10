@@ -9,28 +9,22 @@ interface AddressInputConfig {
   readonly id: AddressField;
   readonly labelId: LanguageResourceIds;
   readonly placeholderId: LanguageResourceIds;
-    readonly onAddressChange: (config: OnAddressChangeHandlerConfig) => void;
+  readonly onAddressChange: (config: OnAddressChangeHandlerConfig) => void;
 }
 
-const AddressInput = ({
-  id,
-  labelId,
-   onAddressChange,
-  placeholderId,
-}: 
-AddressInputConfig) => {
+const AddressInput = ({ id, labelId, onAddressChange, placeholderId }: AddressInputConfig) => {
   const [state, setState] = useStore();
   const { options: autocompleteOptions, restrictions: autocompleteRestrictions } = getSettings().autocomplete;
 
   const onAddressFromChange = ({ currentTarget: { value } }: ChangeEvent<HTMLInputElement>) => {
     setState((prevState) => ({ ...prevState, [id]: value }));
-    onAddressChange({[id]: value});
+    onAddressChange({ [id]: value });
   };
 
   const onAddressFromPlaceChanged = () => {
     const input = document.getElementById(id) as HTMLInputElement;
     setState((prevState) => ({ ...prevState, [id]: input.value }));
-    onAddressChange({[id]: input.value});
+    onAddressChange({ [id]: input.value });
     console.log(input.value);
   };
 
