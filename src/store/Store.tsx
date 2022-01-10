@@ -1,7 +1,8 @@
 import { createContext, FunctionComponent, useContext, useState } from 'react';
 import initialState from './initialState.json';
-import settings from './settings.json';
+import defaultSettings from './settings.json';
 import { Settings, State, StateContext } from './Types';
+import localization from '../localization/se.json';
 
 const Context = createContext<StateContext | undefined>(undefined);
 
@@ -22,5 +23,11 @@ export function useStore() {
 }
 
 export function getSettings() {
-  return settings as Settings;
+  const localizedSettings = localization.settings;
+
+  return { ...defaultSettings, ...localizedSettings } as Settings;
+}
+
+export function getLanguage() {
+  return localization.language;
 }

@@ -42,7 +42,7 @@ const stateSchema: Schema = {
     (typeof value === 'number' && Number.isInteger(value) && Number.isFinite(value)) || value === undefined,
 
   requirePackagingHelp: (value: boolean) => typeof value === 'boolean',
-  routeDistance: (value: number) => typeof value === 'number' && value > 0,
+  distance: (value: number) => typeof value === 'number' && value > 0,
 };
 
 const optionalStateProperties = {

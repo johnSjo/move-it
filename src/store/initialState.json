@@ -1,15 +1,4 @@
 {
   "numberOfBulkyItems": 0,
-  "requirePackagingHelp": false,
-
-  "firstNameValidated": "UNCHECKED",
-  "lastNameValidated": "UNCHECKED",
-  "eMailValidated": "UNCHECKED",
-  "phoneNumberValidated": "UNCHECKED",
-  "floorSpaceValidated": "UNCHECKED",
-  "secondarySpaceValidated": "UNCHECKED",
-  "bulkyItemsValidated": "UNCHECKED",
-  "numberOfBulkyItemsValidated": "UNCHECKED",
-  "requirePackagingHelpValidated": "UNCHECKED",
-  "routeDistanceValidated": "UNCHECKED"
+  "requirePackagingHelp": false
 }

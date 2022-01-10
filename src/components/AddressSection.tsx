@@ -33,7 +33,7 @@ const AddressSection = () => {
       .route({ ...directionRouteOptions, origin: addressFrom, destination: addressTo }, (result, status) => {
         if (status !== google.maps.DirectionsStatus.OK || !result) {
           setRouteWarn(getText(LanguageResourceIds.ROUTE_NOT_FOUND));
-          setState((prevState) => ({ ...prevState, routeDistance: undefined }));
+          setState((prevState) => ({ ...prevState, distance: undefined }));
           return;
         }
 
@@ -50,7 +50,7 @@ const AddressSection = () => {
 
         setDistance(distance!.text);
         setRouteWarn(null);
-        setState((prevState) => ({ ...prevState, routeDistance: distance?.value }));
+        setState((prevState) => ({ ...prevState, distance: distance?.value, distanceText: distance!.text }));
       })
       .catch(() => setRouteWarn(getText(LanguageResourceIds.ROUTE_NOT_FOUND)));
 

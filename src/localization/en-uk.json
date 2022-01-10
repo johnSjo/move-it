@@ -1,0 +1,52 @@
+{
+  "language": {
+    "formTitle": "Offer request for household move",
+    "offerTitle": "Offer for household move",
+    "contacts": "Contact information",
+    "address": "Address information",
+    "moveSpecifications": "Move specifications",
+    "contactFirstName": "Forename",
+    "contactLastName": "Surname",
+    "contactEMail": "E-Mail",
+    "contactPhoneNumber": "Cell number",
+    "addressFrom": "From which address are you moving?",
+    "addressTo": "To which address are you moving?",
+    "addressPlaceholder": "Address",
+    "specificationFloorSpaceInSqMeter": "Floor space in square meter",
+    "specificationFloorSpaceTooSmallWarn": "Floor space needs to be at least 1 sqm",
+    "specificationSecondarySpaceInSqMeter": "Eventual secondary space, attic, storage, etc. in square meter",
+    "specificationBulkyItems": "Eventual bulky items such as piano etc.?",
+    "specificationRequirePackagingHelp": "Is packaging help needed?",
+    "yes": "Yes",
+    "no": "No",
+    "formSubmit": "Submit",
+    "waitingForGoogleAPI": "Waiting for GoogleAPI to load",
+    "routeNotFound": "Route not found, try to adjust your addresses",
+    "priceInformation": "Price information",
+    "incVat": "inc. VAT",
+    "totalDistance": "Total distance between addresses:",
+    "offerAvailable90Days": "The offer is valid for 90 days counting from our reply to you.",
+    "questionsContact": "For questions contact",
+    "moveItEMail": "move@move-it.co.uk",
+    "reopenOffer": "To view your offer again click here:",
+    "approveOffer": "Approve offer"
+  },
+  "settings": {
+    "autocomplete": {
+      "options": { "types": ["address"] },
+      "restrictions": { "country": "uk" }
+    },
+    "directionRouteOptions": {
+      "travelMode": "DRIVING",
+      "unitSystem": 1
+    },
+    "currencyFormat": {
+      "locales": ["en-GB"],
+      "options": {
+        "style": "currency",
+        "currency": "GBP",
+        "maximumFractionDigits": 0
+      }
+    }
+  }
+}

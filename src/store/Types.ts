@@ -19,17 +19,23 @@ export interface State extends AddressFieldTypes {
   bulkyItems?: string;
   numberOfBulkyItems?: number;
   requirePackagingHelp?: boolean;
-  routeDistance?: number;
-  rate?:number;
+  distance?: number;
+  distanceText?: string;
+  rate?: string;
 }
 
 export interface ValidatedState extends Required<Omit<State, 'bulkyItems'>> {}
 
 export type StateContext = [State, React.Dispatch<React.SetStateAction<State>>];
 
+interface CurrencyFormatConfig {
+  readonly locales: Parameters<typeof Intl.NumberFormat>[0];
+  readonly options: Parameters<typeof Intl.NumberFormat>[1];
+}
 export interface Settings {
-  autocomplete: AutocompleteProps;
-  jsApiLoader: Parameters<typeof useJsApiLoader>[0];
+  autocomplete: Omit<AutocompleteProps, 'children'>;
+  jsApiLoader: Omit<Parameters<typeof useJsApiLoader>[0], 'googleMapsApiKey'>;
   directionRouteOptions: Omit<google.maps.DirectionsRequest, 'origin' | 'destination'>;
   onAddressChangeDebouncedDelay: number;
+  currencyFormat: CurrencyFormatConfig;
 }

@@ -1,12 +1,13 @@
 import { Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
 import OfferForm from './components/OfferForm';
+import PriceInformation from './components/PriceInformation';
 import StoreProvider from './store/Store';
 import { getText, LanguageResourceIds } from './utils/Text';
 
 export enum RoutePath {
-    ROOT = '/',
-    OFFER = '/offer',
+  ROOT = '/',
+  OFFER = '/offer',
 }
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
             <>
               <h1>{getText(LanguageResourceIds.OFFER_TITLE)}</h1>
               <OfferForm />
+              <PriceInformation />
             </>
           }
         ></Route>

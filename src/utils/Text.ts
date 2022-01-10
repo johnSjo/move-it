@@ -1,4 +1,4 @@
-import language from '../language/se.json';
+import { getLanguage } from '../store/Store';
 
 export enum LanguageResourceIds {
   FORM_TITLE = 'formTitle',
@@ -23,9 +23,20 @@ export enum LanguageResourceIds {
   FORM_SUBMIT = 'formSubmit',
   WAITING_FOR_GOOGLE_API = 'waitingForGoogleAPI',
   ROUTE_NOT_FOUND = 'routeNotFound',
+  PRICE_INFORMATION = 'priceInformation',
+  PRICE_ESTIMATION = 'priceEstimation',
+  INC_VAT = 'incVat',
+  TOTAL_DISTANCE = 'totalDistance',
+  OFFER_AVAILABLE_90_DAYS = 'offerAvailable90Days',
+  QUESTIONS_CONTACT = 'questionsContact',
+  MOVE_IT_EMAIL = 'moveItEMail',
+  REOPEN_OFFER = 'reopenOffer',
+  APPROVE_OFFER = 'approveOffer',
 }
 
 export function getText(id: LanguageResourceIds) {
+  const language = getLanguage();
+
   if (language[id] === undefined) {
     console.warn(`getText:: id${id} does not exist`);
 
