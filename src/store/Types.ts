@@ -25,6 +25,15 @@ export interface State extends AddressFieldTypes {
   id?: number;
 }
 
+export interface TestResult {
+  readonly prop: string;
+  readonly valid: boolean;
+}
+export interface ValidationResult {
+  readonly isValid: boolean;
+  readonly testResults: TestResult[];
+}
+
 export interface ValidatedState extends Required<Omit<State, 'bulkyItems'>> {}
 
 export type StateContext = [State, React.Dispatch<React.SetStateAction<State>>];
@@ -33,10 +42,17 @@ interface CurrencyFormatConfig {
   readonly locales: Parameters<typeof Intl.NumberFormat>[0];
   readonly options: Parameters<typeof Intl.NumberFormat>[1];
 }
+
+interface OptionalStateProperties {
+  readonly secondarySpace: number;
+  readonly bulkyItems: string;
+  readonly numberOfBulkyItems: number;
+}
 export interface Settings {
-  autocomplete: Omit<AutocompleteProps, 'children'>;
-  jsApiLoader: Omit<Parameters<typeof useJsApiLoader>[0], 'googleMapsApiKey'>;
-  directionRouteOptions: Omit<google.maps.DirectionsRequest, 'origin' | 'destination'>;
-  onAddressChangeDebouncedDelay: number;
-  currencyFormat: CurrencyFormatConfig;
+  readonly autocomplete: Omit<AutocompleteProps, 'children'>;
+  readonly jsApiLoader: Omit<Parameters<typeof useJsApiLoader>[0], 'googleMapsApiKey'>;
+  readonly directionRouteOptions: Omit<google.maps.DirectionsRequest, 'origin' | 'destination'>;
+  readonly onAddressChangeDebouncedDelay: number;
+  readonly currencyFormat: CurrencyFormatConfig;
+  readonly optionalStateProperties: OptionalStateProperties;
 }

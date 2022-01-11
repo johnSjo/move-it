@@ -34,10 +34,10 @@
     },
     {
       "numberOfBulkyItems": 1,
-      "requirePackagingHelp": true,
+      "requirePackagingHelp": false,
       "firstName": "John",
       "lastName": "Sjöström",
-      "phoneNumber": "070-xxx xx xx",
+      "phoneNumber": "070-xxx xx xxx",
       "addressFrom": "Tulegatan, Sundbyberg, Sweden",
       "addressTo": "Vretensborgsvägen, Hägersten, Sweden",
       "distance": 12336,
@@ -48,6 +48,14 @@
       "rate": "10 617 kr",
       "id": 34568,
       "email": "john.sjostrom79@gmail.com"
+    },
+    {
+      "numberOfBulkyItems": 0,
+      "requirePackagingHelp": false,
+      "secondarySpace": 0,
+      "bulkyItems": "",
+      "rate": "NaN kr",
+      "id": 34569
     }
   ]
 }

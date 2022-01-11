@@ -10,5 +10,10 @@
   "directionRouteOptions": {
     "travelMode": "DRIVING"
   },
-  "onAddressChangeDebouncedDelay": 1000
+  "onAddressChangeDebouncedDelay": 1000,
+  "optionalStateProperties": {
+    "secondarySpace": 0,
+    "bulkyItems": "",
+    "numberOfBulkyItems": 0
+  }
 }

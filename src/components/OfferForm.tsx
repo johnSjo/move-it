@@ -2,12 +2,12 @@ import { SyntheticEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { RoutePath } from '../App';
 import SectionHeader from '../elements/SectionHeader';
-import { formatCurrency, useStore } from '../store/Store';
-import { State } from '../store/Types';
+import { formatCurrency, getSettings, useStore } from '../store/Store';
+import { State, ValidatedState } from '../store/Types';
 import { addOfferToMockBackend } from '../utils/MockBackend';
 import { createRateApiConfigString, fetchRate } from '../utils/RateAPI';
 import { getText, LanguageResourceIds } from '../utils/Text';
-import { createValidatedState } from '../utils/Validation';
+import { validateState } from '../utils/Validation';
 import AddressSection from './AddressSection';
 import ContactSection from './ContactSection';
 import SpecificationSection from './SpecificationSection';
@@ -20,9 +20,10 @@ const OfferForm = () => {
     event.preventDefault();
 
     // validate the state
-    const validatedState = createValidatedState(state);
+    const { isValid, testResults } = validateState(state);
 
-    if (validatedState) {
+    if (isValid) {
+      const validatedState = { ...getSettings().optionalStateProperties, ...state } as ValidatedState;
       // send rate request to API
       const rateApiConfig = createRateApiConfigString(validatedState);
       const { rate } = await fetchRate(rateApiConfig);
@@ -30,6 +31,8 @@ const OfferForm = () => {
 
       setState(newState);
       navigate(`${RoutePath.OFFER}/${newState.id}`);
+    } else {
+      // TODO: go though testResults
     }
   };
 

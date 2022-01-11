@@ -1,4 +1,4 @@
-import { State, ValidatedState } from '../store/Types';
+import { State, TestResult, ValidatedState, ValidationResult } from '../store/Types';
 
 export function removeLeadingZeros(value: number) {
   const string = value.toString();
@@ -24,39 +24,27 @@ export function countWords(str: string) {
 }
 
 interface Schema {
-  [key: string]: (value: any) => boolean;
+  [key: string]: (value?: any) => boolean;
 }
 
 const stateSchema: Schema = {
-  firstName: (value: string) => value.length > 0,
-  lastName: (value: string) => value.length > 0,
-  email: (value: string) => validateEmail(value),
-  phoneNumber: (value: string) => value.length > 0,
-  addressFrom: (value: string) => value.length > 0,
-  addressTo: (value: string) => value.length > 0,
-  floorSpace: (value: number) => value > 0,
-  requirePackagingHelp: (value: boolean) => typeof value === 'boolean',
-  distance: (value: number) => value > 0,
-  distanceText: (value: string) => value.length > 0,
+  firstName: (value?: string) => value !== undefined && value.length > 0,
+  lastName: (value?: string) => value !== undefined && value.length > 0,
+  email: (value?: string) => value !== undefined && validateEmail(value),
+  phoneNumber: (value?: string) => value !== undefined && value.length > 0,
+  addressFrom: (value?: string) => value !== undefined && value.length > 0,
+  addressTo: (value?: string) => value !== undefined && value.length > 0,
+  floorSpace: (value?: number) => value !== undefined && value > 0,
+  requirePackagingHelp: (value?: boolean) => value !== undefined,
+  distance: (value?: number) => value !== undefined && value > 0,
+  distanceText: (value?: string) => value !== undefined && value.length > 0,
+
+  secondarySpace: (value?: number) => value === undefined || value > -1,
+  bulkyItems: (value?: string) => value === undefined || value.length > 0,
+  numberOfBulkyItems: (value?: number) => value === undefined || value > -1,
 };
 
-const optionalStateProperties = {
-  secondarySpace: 0,
-  bulkyItems: '',
-  numberOfBulkyItems: 0,
-};
-
-export function createValidatedState(state: State): ValidatedState | undefined {
-  const isValidState = validateState(state);
-
-  if (isValidState) {
-    return { ...optionalStateProperties, ...state } as ValidatedState;
-  }
-
-  return undefined;
-}
-
-function validateState(state: State) {
+export function validateState(state: State) {
   return validate({ object: state, schema: stateSchema });
 }
 
@@ -65,25 +53,22 @@ interface ValidateConfig {
   readonly schema: Schema;
 }
 
-function validate({ object, schema }: ValidateConfig) {
-  const results = Object.entries(schema).reduce((results: boolean[], [key, test]) => {
+function validate({ object, schema }: ValidateConfig): ValidationResult {
+  const results = Object.entries(schema).reduce((results: TestResult[], [key, test]) => {
     const prop = object[key];
-    return [...results, prop !== undefined ? test(prop) : false];
-  }, []);
+    const testResult = test(prop);
 
-  if (results.some((result) => !result)) {
-    results.forEach((result, index) =>
-      console.log(
-        !result
-          ? `Property ${Object.keys(schema)[index]} did NOT pass validation`
-          : `-- Property ${Object.keys(schema)[index]} passed validation`
-      )
+    return [...results, { prop: key, valid: testResult }];
+  }, []);
+  const isValid = results.every(({ valid }) => valid);
+
+  if (!isValid) {
+    results.forEach(({ prop, valid }) =>
+      console.log(valid ? `-- Property ${prop} passed validation` : `Property ${prop} did NOT pass validation`)
     );
-    return false;
   }
 
-  console.log('info is valid');
-  return true;
+  return { isValid, testResults: results };
 }
 
 export function validateEmail(value?: string) {
