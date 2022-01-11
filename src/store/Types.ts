@@ -12,7 +12,7 @@ export type RateResponse = {
 export interface State extends AddressFieldTypes {
   firstName?: string;
   lastName?: string;
-  eMail?: string;
+  email?: string;
   phoneNumber?: string;
   floorSpace?: number;
   secondarySpace?: number;

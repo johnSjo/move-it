@@ -1,20 +1,43 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useCallback, useState } from 'react';
+import { debounce } from 'lodash';
 import { useStore } from '../store/Store';
 import { getText, LanguageResourceIds } from '../utils/Text';
+import { validateEmail, validatePhoneNumberLoosely } from '../utils/Validation';
+import InputWarning from '../elements/InputWarning';
 
 const ContactSection = () => {
-  const [{ firstName, lastName, eMail, phoneNumber }, setState] = useStore();
+  const [{ firstName, lastName, email, phoneNumber }, setState] = useStore();
+  const [emailWarning, setEmailWarning] = useState(false);
+  const [phoneNumberWarning, setPhoneNumberWarning] = useState(false);
 
   const onFirstNameChange = ({ currentTarget: { value } }: ChangeEvent<HTMLInputElement>) =>
     setState((prevState) => ({ ...prevState, firstName: value }));
   const onLastNameChange = ({ currentTarget: { value } }: ChangeEvent<HTMLInputElement>) =>
     setState((prevState) => ({ ...prevState, lastName: value }));
-  // TODO: validate e-mail
-  const onEMailChange = ({ currentTarget: { value } }: ChangeEvent<HTMLInputElement>) =>
-    setState((prevState) => ({ ...prevState, eMail: value }));
-  // TODO: validate phone number
+  const onEmailChange = ({ currentTarget: { value } }: ChangeEvent<HTMLInputElement>) =>
+    setState((prevState) => ({ ...prevState, email: value }));
   const onPhoneNumberChange = ({ currentTarget: { value } }: ChangeEvent<HTMLInputElement>) =>
     setState((prevState) => ({ ...prevState, phoneNumber: value }));
+
+  const debouncedEmailWarning = useCallback(
+    debounce((value: string) => setEmailWarning(!validateEmail(value)), 1000),
+    []
+  );
+  const onEmailChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    onEmailChange(event);
+    setEmailWarning(false);
+    debouncedEmailWarning(event.currentTarget.value);
+  };
+
+  const debouncedPhoneNumberWarning = useCallback(
+    debounce((value: string) => setPhoneNumberWarning(!validatePhoneNumberLoosely(value)), 1000),
+    []
+  );
+  const onPhoneNumberChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    onPhoneNumberChange(event);
+    setPhoneNumberWarning(false);
+    debouncedPhoneNumberWarning(event.currentTarget.value);
+  };
 
   return (
     <div>
@@ -34,18 +57,20 @@ const ContactSection = () => {
       ></input>
       <label>{getText(LanguageResourceIds.CONTACT_EMAIL)}</label>
       <input
-        type='email'
+        type='text'
         placeholder={getText(LanguageResourceIds.CONTACT_EMAIL)}
-        value={eMail ?? ''}
-        onChange={onEMailChange}
+        value={email ?? ''}
+        onChange={onEmailChangeHandler}
       ></input>
+      <InputWarning show={emailWarning} id={LanguageResourceIds.CONTACT_EMAIL_WARN} />
       <label>{getText(LanguageResourceIds.CONTACT_PHONE_NUMBER)}</label>
       <input
         type='text'
         placeholder={getText(LanguageResourceIds.CONTACT_PHONE_NUMBER)}
         value={phoneNumber ?? ''}
-        onChange={onPhoneNumberChange}
+        onChange={onPhoneNumberChangeHandler}
       ></input>
+      <InputWarning show={phoneNumberWarning} id={LanguageResourceIds.CONTACT_PHONE_NUMBER_WARN} loose={true} />
     </div>
   );
 };

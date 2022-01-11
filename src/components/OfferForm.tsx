@@ -1,12 +1,12 @@
 import { SyntheticEvent } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { RoutePath } from '../App';
 import SectionHeader from '../elements/SectionHeader';
 import { formatCurrency, useStore } from '../store/Store';
 import { State } from '../store/Types';
+import { addOfferToMockBackend } from '../utils/MockBackend';
 import { createRateApiConfigString, fetchRate } from '../utils/RateAPI';
 import { getText, LanguageResourceIds } from '../utils/Text';
-import { addOfferToMockBackend } from '../utils/MockBackend';
 import { createValidatedState } from '../utils/Validation';
 import AddressSection from './AddressSection';
 import ContactSection from './ContactSection';
@@ -14,7 +14,6 @@ import SpecificationSection from './SpecificationSection';
 
 const OfferForm = () => {
   const [state, setState] = useStore();
-  const params = useParams();
   const navigate = useNavigate();
   const onSubmitHandler = async (event: SyntheticEvent) => {
     console.log('FORM_SUBMIT');
@@ -23,8 +22,8 @@ const OfferForm = () => {
     // validate the state
     const validatedState = createValidatedState(state);
 
-    // send rate request to API
     if (validatedState) {
+      // send rate request to API
       const rateApiConfig = createRateApiConfigString(validatedState);
       const { rate } = await fetchRate(rateApiConfig);
       const newState = (await addOfferToMockBackend({ ...state, ...validatedState, rate: formatCurrency(rate) })) as State;
@@ -33,8 +32,6 @@ const OfferForm = () => {
       navigate(`${RoutePath.OFFER}/${newState.id}`);
     }
   };
-
-  console.log(params.offerId);
 
   return (
     <form onSubmit={onSubmitHandler}>

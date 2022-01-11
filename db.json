@@ -34,7 +34,7 @@
     },
     {
       "numberOfBulkyItems": 1,
-      "requirePackagingHelp": false,
+      "requirePackagingHelp": true,
       "firstName": "John",
       "lastName": "Sjöström",
       "phoneNumber": "070-xxx xx xx",
@@ -47,7 +47,7 @@
       "bulkyItems": "Flygel",
       "rate": "10 617 kr",
       "id": 34568,
-      "eMail": "john.sjostrom79@gmail.com"
+      "email": "john.sjostrom79@gmail.com"
     }
   ]
 }

@@ -28,21 +28,16 @@ interface Schema {
 }
 
 const stateSchema: Schema = {
-  firstName: (value: string) => typeof value === 'string' && value.length > 0,
-  lastName: (value: string) => typeof value === 'string' && value.length > 0,
-  eMail: (value: string) => true, // TODO: do e-mail validation
-  phoneNumber: (value: string) => typeof value === 'string' && value.length > 0,
-  addressFrom: (value: string) => typeof value === 'string' && value.length > 0,
-  addressTo: (value: string) => typeof value === 'string' && value.length > 0,
-  floorSpace: (value: number) => typeof value === 'number' && value > 0,
-
-  secondarySpace: (value: number) => typeof value === 'number' || value === undefined,
-  bulkyItems: (value: string) => typeof value === 'string' || value === undefined,
-  numberOfBulkyItems: (value: number) =>
-    (typeof value === 'number' && Number.isInteger(value) && Number.isFinite(value)) || value === undefined,
-
+  firstName: (value: string) => value.length > 0,
+  lastName: (value: string) => value.length > 0,
+  email: (value: string) => validateEmail(value),
+  phoneNumber: (value: string) => value.length > 0,
+  addressFrom: (value: string) => value.length > 0,
+  addressTo: (value: string) => value.length > 0,
+  floorSpace: (value: number) => value > 0,
   requirePackagingHelp: (value: boolean) => typeof value === 'boolean',
-  distance: (value: number) => typeof value === 'number' && value > 0,
+  distance: (value: number) => value > 0,
+  distanceText: (value: string) => value.length > 0,
 };
 
 const optionalStateProperties = {
@@ -73,7 +68,7 @@ interface ValidateConfig {
 function validate({ object, schema }: ValidateConfig) {
   const results = Object.entries(schema).reduce((results: boolean[], [key, test]) => {
     const prop = object[key];
-    return [...results, test(prop)];
+    return [...results, prop !== undefined ? test(prop) : false];
   }, []);
 
   if (results.some((result) => !result)) {
@@ -89,4 +84,19 @@ function validate({ object, schema }: ValidateConfig) {
 
   console.log('info is valid');
   return true;
+}
+
+export function validateEmail(value?: string) {
+  return (
+    value !== undefined &&
+    /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i.test(
+      value
+    )
+  );
+}
+
+// NOTE: this will only be used to give the user a hit that their number might be wrong
+// full validation need to happen server-side
+export function validatePhoneNumberLoosely(value?: string) {
+  return value !== undefined && /^[ 0-9\.\(\)\+\-]*$/.test(value) && value.length > 6;
 }
