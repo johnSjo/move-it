@@ -17,15 +17,18 @@ export interface OnAddressChangeHandlerConfig {
 }
 
 const AddressSection = () => {
+  const [state, setState] = useStore();
   const [distance, setDistance] = useState<string | null>(null);
   const [routeWarning, setRouteWarning] = useState(false);
   const [findingRoute, setFindingRoute] = useState(false);
-  const [state, setState] = useStore();
   const { jsApiLoader, directionRouteOptions, onAddressChangeDebouncedDelay } = getSettings();
   const { isLoaded } = useJsApiLoader({
     ...jsApiLoader,
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_KEY!,
   });
+
+  // NOTE: This whole address request/update have some flaws in it, it doesn't manage multiple requests properly
+  // Will revisit this later if I have the time
   const onAddressChange = async ({ addressFrom, addressTo }: State) => {
     if (!addressFrom || !addressTo) return;
     const directionsService = new google.maps.DirectionsService();
@@ -40,7 +43,7 @@ const AddressSection = () => {
         (result, status) => {
           if (status !== google.maps.DirectionsStatus.OK || !result) {
             setRouteWarning(true);
-            setState((prevState) => ({ ...prevState, distance: undefined }));
+            setState((prevState) => ({ ...prevState, distance: undefined, findingRoute: false }));
             return;
           }
 
@@ -65,6 +68,7 @@ const AddressSection = () => {
             distanceText: distance!.text,
             startAddress: start_address,
             endAddress: end_address,
+            findingRoute: false,
           }));
         }
       )
@@ -75,13 +79,17 @@ const AddressSection = () => {
   const debouncedOnAddressChange = useCallback(debounce(onAddressChange, onAddressChangeDebouncedDelay), []);
   const onAddressChangeHandler = (newAddress: OnAddressChangeHandlerConfig) => {
     const newState = { ...state, ...newAddress };
+
+    if (newState.addressFrom === state.addressFrom && newState.addressTo === state.addressTo) {
+      return;
+    }
+
     setDistance(null);
     setRouteWarning(false);
 
-    console.log(newAddress);
-
     if (newState.addressFrom && newState.addressTo) setFindingRoute(true);
 
+    setState((prevState) => ({ ...prevState, ...newAddress, findingRoute: true }));
     debouncedOnAddressChange(newState);
   };
 
@@ -103,8 +111,13 @@ const AddressSection = () => {
       ></AddressInput>
       <span>{distance}</span>
       <InputWarning show={routeWarning} id={LanguageResourceIds.ROUTE_NOT_FOUND} />
-      {/* TODO: replace with a loading spinner */}
-      {findingRoute ? <span>findingRoute</span> : ''}
+      {findingRoute ? (
+        <svg className='spinner' role='alert' aria-live='assertive'>
+          <circle cx='30' cy='30' r='20' className='circle' />
+        </svg>
+      ) : (
+        ''
+      )}
     </div>
   );
 };

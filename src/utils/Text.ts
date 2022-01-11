@@ -40,6 +40,7 @@ export enum LanguageResourceIds {
   APPROVE_OFFER = 'approveOffer',
   SQM = 'sqm',
   CHANGE_DATA = 'changeData',
+  ESTIMATING_PRICE = 'estimatingPrice'
 }
 
 export function getText(id: LanguageResourceIds) {

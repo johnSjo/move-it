@@ -1,0 +1,47 @@
+.header {
+  text-transform: uppercase;
+}
+
+.header img {
+  margin: -10px;
+}
+
+label {
+  text-transform: uppercase;
+}
+
+.pac-logo::after {
+    display: none;
+}
+
+.spinner {
+  transform: rotate(-90deg);
+  width: 60px;
+  height: 60px;
+
+  .circle {
+    stroke-linecap: round;
+    stroke-dasharray: 360;
+    stroke-width: 6;
+    stroke: blue;
+    fill: transparent;
+    animation: spin 0.6s ease-in-out 0s normal infinite;
+  }
+}
+
+@keyframes spin {
+  from {
+    stroke-dashoffset: 360;
+  }
+  to {
+    stroke-dashoffset: 40;
+  }
+}
+
+.loading-cover {
+    height: 100vh;
+    width: 100vh;
+    position: absolute;
+    backdrop-filter: blur(2px);
+    background-color: rgba(0, 0, 0, 0.3);
+}

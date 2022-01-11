@@ -18,13 +18,12 @@ const AddressInput = ({ id, labelId, onAddressChange, placeholderId }: AddressIn
   const { options: autocompleteOptions, restrictions: autocompleteRestrictions } = getSettings().autocomplete;
 
   const onAddressInputChange = ({ currentTarget: { value } }: ChangeEvent<HTMLInputElement>) => {
-    setState((prevState) => ({ ...prevState, [id]: value }));
+    onAddressChange({ [id]: value });
     setInvalidAddress(false);
   };
 
   const onAddressInputPlaceChanged = () => {
     const input = document.getElementById(id) as HTMLInputElement;
-    setState((prevState) => ({ ...prevState, [id]: input.value }));
     onAddressChange({ [id]: input.value });
     setInvalidAddress(false);
   };

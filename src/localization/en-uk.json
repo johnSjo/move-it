@@ -37,7 +37,8 @@
     "reopenOffer": "To view your offer again click here:",
     "approveOffer": "Approve offer",
     "sqm": "sqm",
-    "changeData": "Change data"
+    "changeData": "Change data",
+    "estimatingPrice": "Estimating price..."
   },
   "settings": {
     "autocomplete": {

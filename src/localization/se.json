@@ -38,7 +38,8 @@
     "reopenOffer": "För att se offerten igen klicka här:",
     "approveOffer": "Godkänn offert",
     "sqm": "kvm",
-    "changeData": "Ändra uppgifter"
+    "changeData": "Ändra uppgifter",
+    "estimatingPrice": "Uppskattar pris..."
   },
   "settings": {
     "autocomplete": {

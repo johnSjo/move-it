@@ -26,6 +26,7 @@ export interface State extends AddressFieldTypes {
   invalidProps: string[];
   startAddress?: string;
   endAddress?: string;
+  findingRoute?: boolean;
 }
 
 export interface TestResult {
