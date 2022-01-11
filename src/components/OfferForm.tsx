@@ -27,24 +27,46 @@ const OfferForm = () => {
       // send rate request to API
       const rateApiConfig = createRateApiConfigString(validatedState);
       const { rate } = await fetchRate(rateApiConfig);
-      const newState = (await addOfferToMockBackend({ ...state, ...validatedState, rate: formatCurrency(rate) })) as State;
+      const newState = (await addOfferToMockBackend({
+        ...state,
+        ...validatedState,
+        rate: formatCurrency(rate),
+        invalidProps: [],
+        addressFrom: state.startAddress,
+        addressTo: state.endAddress,
+      })) as State;
 
       setState(newState);
       navigate(`${RoutePath.OFFER}/${newState.id}`);
     } else {
-      // TODO: go though testResults
+      const invalidProps = testResults.reduce(
+        (invalidProps: string[], { valid, prop }) => (!valid ? [...invalidProps, prop] : invalidProps),
+        []
+      );
+
+      console.log(invalidProps);
+      setState((prevState) => ({ ...prevState, invalidProps }));
     }
   };
 
+  // TODO: look into supporting command + enter to submit form
+  // const onKeyPressHandler = (event: KeyboardEvent<HTMLFormElement>) => {
+  //     const { key, metaKey } = event;
+  //     if (metaKey && key === 'Enter') {
+  //         onSubmitHandler(event);
+  //     }
+  //     console.log(event);
+  //   };
+
   return (
-    <form onSubmit={onSubmitHandler}>
+    <form>
       <SectionHeader index={1} title={LanguageResourceIds.CONTACTS} />
       <ContactSection />
       <SectionHeader index={2} title={LanguageResourceIds.ADDRESS} />
       <AddressSection />
       <SectionHeader index={3} title={LanguageResourceIds.MOVE_SPECIFICATIONS} />
       <SpecificationSection />
-      <input type='submit' value={getText(LanguageResourceIds.FORM_SUBMIT)} />
+      <input type='button' value={getText(LanguageResourceIds.FORM_SUBMIT)} onClick={onSubmitHandler} />
     </form>
   );
 };

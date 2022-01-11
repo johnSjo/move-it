@@ -34,13 +34,15 @@ const stateSchema: Schema = {
   phoneNumber: (value?: string) => value !== undefined && value.length > 0,
   addressFrom: (value?: string) => value !== undefined && value.length > 0,
   addressTo: (value?: string) => value !== undefined && value.length > 0,
-  floorSpace: (value?: number) => value !== undefined && value > 0,
+  floorSpace: (value?: number) => value !== undefined && value >= 1,
   requirePackagingHelp: (value?: boolean) => value !== undefined,
   distance: (value?: number) => value !== undefined && value > 0,
   distanceText: (value?: string) => value !== undefined && value.length > 0,
 
   secondarySpace: (value?: number) => value === undefined || value > -1,
-  bulkyItems: (value?: string) => value === undefined || value.length > 0,
+
+  // TODO: we may want to double check these two, since they are related
+  bulkyItems: (value?: string) => true,
   numberOfBulkyItems: (value?: number) => value === undefined || value > -1,
 };
 
@@ -63,9 +65,13 @@ function validate({ object, schema }: ValidateConfig): ValidationResult {
   const isValid = results.every(({ valid }) => valid);
 
   if (!isValid) {
-    results.forEach(({ prop, valid }) =>
-      console.log(valid ? `-- Property ${prop} passed validation` : `Property ${prop} did NOT pass validation`)
-    );
+    results.forEach(({ prop, valid }) => {
+      if (valid) {
+        console.log(`%cProperty ${prop} passed validation`, 'color:#999999');
+      } else {
+        console.warn(`%cProperty ${prop} did NOT pass validation`, 'color:#dd2222');
+      }
+    });
   }
 
   return { isValid, testResults: results };

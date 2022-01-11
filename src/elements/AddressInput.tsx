@@ -1,9 +1,9 @@
 import { Autocomplete } from '@react-google-maps/api';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { AddressField, OnAddressChangeHandlerConfig } from '../components/AddressSection';
 import { getSettings, useStore } from '../store/Store';
-import { State } from '../store/Types';
 import { getText, LanguageResourceIds } from '../utils/Text';
+import InputWarning from './InputWarning';
 
 interface AddressInputConfig {
   readonly id: AddressField;
@@ -14,19 +14,28 @@ interface AddressInputConfig {
 
 const AddressInput = ({ id, labelId, onAddressChange, placeholderId }: AddressInputConfig) => {
   const [state, setState] = useStore();
+  const [invalidAddress, setInvalidAddress] = useState(false);
   const { options: autocompleteOptions, restrictions: autocompleteRestrictions } = getSettings().autocomplete;
 
-  const onAddressFromChange = ({ currentTarget: { value } }: ChangeEvent<HTMLInputElement>) => {
+  const onAddressInputChange = ({ currentTarget: { value } }: ChangeEvent<HTMLInputElement>) => {
     setState((prevState) => ({ ...prevState, [id]: value }));
-    onAddressChange({ [id]: value });
+    setInvalidAddress(false);
   };
 
-  const onAddressFromPlaceChanged = () => {
+  const onAddressInputPlaceChanged = () => {
     const input = document.getElementById(id) as HTMLInputElement;
     setState((prevState) => ({ ...prevState, [id]: input.value }));
     onAddressChange({ [id]: input.value });
-    console.log(input.value);
+    setInvalidAddress(false);
   };
+
+  const onAddressBlur = ({ currentTarget: { value } }: ChangeEvent<HTMLInputElement>) => {
+    onAddressChange({ [id]: value });
+  };
+
+  useEffect(() => {
+    setInvalidAddress(state.invalidProps.includes(id));
+  }, [state.invalidProps]);
 
   return (
     <div>
@@ -34,16 +43,18 @@ const AddressInput = ({ id, labelId, onAddressChange, placeholderId }: AddressIn
       <Autocomplete
         options={autocompleteOptions}
         restrictions={autocompleteRestrictions}
-        onPlaceChanged={onAddressFromPlaceChanged}
+        onPlaceChanged={onAddressInputPlaceChanged}
       >
         <input
           id={id}
           type='text'
           placeholder={getText(placeholderId)}
           value={state[id] ?? ''}
-          onChange={onAddressFromChange}
+          onChange={onAddressInputChange}
+          onBlur={onAddressBlur}
         ></input>
       </Autocomplete>
+      <InputWarning show={invalidAddress} id={LanguageResourceIds.INVALID_ADDRESS} />
     </div>
   );
 };

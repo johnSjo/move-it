@@ -23,6 +23,9 @@ export interface State extends AddressFieldTypes {
   distanceText?: string;
   rate?: string;
   id?: number;
+  invalidProps: string[];
+  startAddress?: string;
+  endAddress?: string;
 }
 
 export interface TestResult {

@@ -1,4 +1,5 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
+import InputWarning from '../elements/InputWarning';
 import { useStore } from '../store/Store';
 import { getText, LanguageResourceIds } from '../utils/Text';
 import { countWords, removeLeadingZeros } from '../utils/Validation';
@@ -9,9 +10,11 @@ export const enum RequirePackaging {
 }
 
 const SpecificationSection = () => {
-  const [{ floorSpace, secondarySpace, bulkyItems, numberOfBulkyItems, requirePackagingHelp = false }, setState] =
-    useStore();
-  const [showTooSmallFloorSpaceWarn, setShowTooSmallFloorSpaceWarn] = useState(false);
+  const [
+    { floorSpace, secondarySpace, bulkyItems, numberOfBulkyItems, requirePackagingHelp = false, invalidProps },
+    setState,
+  ] = useStore();
+  const [invalidFloorSpace, setInvalidFloorSpace] = useState(false);
 
   const onFloorSpaceChange = ({ currentTarget: { value } }: ChangeEvent<HTMLInputElement>) => {
     let floorSpace = value === '' ? 0 : parseInt(value, 10);
@@ -19,11 +22,11 @@ const SpecificationSection = () => {
       throw new Error(`floorSpace value (${value}) is not a valid number`);
     }
 
-    setShowTooSmallFloorSpaceWarn(false);
+    setInvalidFloorSpace(false);
 
-    if (floorSpace <= 0) {
-      floorSpace = 0;
-      setShowTooSmallFloorSpaceWarn(true);
+    if (floorSpace < 1) {
+      floorSpace = 1;
+      setInvalidFloorSpace(true);
     }
 
     setState((prevState) => ({ ...prevState, floorSpace }));
@@ -51,6 +54,10 @@ const SpecificationSection = () => {
       bulkyItems: value,
     }));
 
+  useEffect(() => {
+    setInvalidFloorSpace(invalidProps.includes('floorSpace'));
+  }, [invalidProps]);
+
   return (
     <div>
       <label>{getText(LanguageResourceIds.SPECIFICATION_FLOOR_SPACE_IN_SQ_METER)}</label>
@@ -59,20 +66,19 @@ const SpecificationSection = () => {
         value={floorSpace !== undefined ? removeLeadingZeros(floorSpace) : ''}
         onChange={onFloorSpaceChange}
       ></input>
-      {showTooSmallFloorSpaceWarn ? (
-        <span>{getText(LanguageResourceIds.SPECIFICATION_FLOOR_SPACE_TOO_SMALL_WARN)}</span>
-      ) : (
-        ''
-      )}
+      <InputWarning show={invalidFloorSpace} id={LanguageResourceIds.INVALID_FLOOR_SPACE} />
+
       <label>{getText(LanguageResourceIds.SPECIFICATION_SECONDARY_SPACE_IN_SQ_METER)}</label>
       <input
         type='number'
         value={secondarySpace !== undefined ? removeLeadingZeros(secondarySpace) : ''}
         onChange={onSecondarySpaceChange}
       ></input>
+
       <label>{getText(LanguageResourceIds.SPECIFICATION_BULKY_ITEMS)}</label>
       <input type='text' value={bulkyItems ?? ''} onChange={onBulkyItemsChange}></input>
       <span>{numberOfBulkyItems !== undefined && numberOfBulkyItems > 0 ? numberOfBulkyItems : ''}</span>
+
       <label>{getText(LanguageResourceIds.SPECIFICATION_REQUIRE_PACKAGING_HELP)}</label>
       <div>
         <span>{getText(LanguageResourceIds.YES)}</span>

@@ -1,4 +1,5 @@
 {
   "numberOfBulkyItems": 0,
-  "requirePackagingHelp": false
+  "requirePackagingHelp": false,
+  "invalidProps": []
 }

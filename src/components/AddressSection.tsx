@@ -2,6 +2,7 @@ import { useJsApiLoader } from '@react-google-maps/api';
 import { debounce } from 'lodash';
 import { useCallback, useState } from 'react';
 import AddressInput from '../elements/AddressInput';
+import InputWarning from '../elements/InputWarning';
 import { getSettings, useStore } from '../store/Store';
 import { State } from '../store/Types';
 import { getText, LanguageResourceIds } from '../utils/Text';
@@ -17,7 +18,7 @@ export interface OnAddressChangeHandlerConfig {
 
 const AddressSection = () => {
   const [distance, setDistance] = useState<string | null>(null);
-  const [routeWarn, setRouteWarn] = useState<string | null>(null);
+  const [routeWarning, setRouteWarning] = useState(false);
   const [findingRoute, setFindingRoute] = useState(false);
   const [state, setState] = useStore();
   const { jsApiLoader, directionRouteOptions, onAddressChangeDebouncedDelay } = getSettings();
@@ -38,7 +39,7 @@ const AddressSection = () => {
         },
         (result, status) => {
           if (status !== google.maps.DirectionsStatus.OK || !result) {
-            setRouteWarn(getText(LanguageResourceIds.ROUTE_NOT_FOUND));
+            setRouteWarning(true);
             setState((prevState) => ({ ...prevState, distance: undefined }));
             return;
           }
@@ -57,15 +58,17 @@ const AddressSection = () => {
           }
 
           setDistance(distance!.text);
-          setRouteWarn(null);
+          setRouteWarning(false);
           setState((prevState) => ({
             ...prevState,
             distance: distance?.value,
             distanceText: distance!.text,
+            startAddress: start_address,
+            endAddress: end_address,
           }));
         }
       )
-      .catch(() => setRouteWarn(getText(LanguageResourceIds.ROUTE_NOT_FOUND)));
+      .catch(() => setRouteWarning(true));
 
     setFindingRoute(false);
   };
@@ -73,7 +76,7 @@ const AddressSection = () => {
   const onAddressChangeHandler = (newAddress: OnAddressChangeHandlerConfig) => {
     const newState = { ...state, ...newAddress };
     setDistance(null);
-    setRouteWarn(null);
+    setRouteWarning(false);
 
     console.log(newAddress);
 
@@ -99,7 +102,7 @@ const AddressSection = () => {
         onAddressChange={onAddressChangeHandler}
       ></AddressInput>
       <span>{distance}</span>
-      <span>{routeWarn}</span>
+      <InputWarning show={routeWarning} id={LanguageResourceIds.ROUTE_NOT_FOUND} />
       {/* TODO: replace with a loading spinner */}
       {findingRoute ? <span>findingRoute</span> : ''}
     </div>
