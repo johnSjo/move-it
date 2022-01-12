@@ -1,10 +1,8 @@
 # MoveIT - Offertförfrågan för bohagsflytt
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### 'npm i'
 
-## Available Scripts
-
-In the project directory, you can run:
+To install all dependencies
 
 ### `npm start`
 
@@ -17,3 +15,13 @@ You will also see any lint errors in the console.
 ### `npm run server`
 
 Will start a mock backend running on http://localhost:5000
+It's just a local json file used to simulate a basic backend
+Is used for saving/retrieving offers
+
+### `npm run build`
+
+For building the production version
+
+### `npm run prod`
+
+To start the production version (will use 'serve' for this)

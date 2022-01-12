@@ -52,8 +52,6 @@ export function getText(id: LanguageResourceIds, replacements?: string[], placeh
     return '';
   }
 
-  console.log(replacements);
-
   return replacements && replacements.length > 0
     ? replacePlaceHolders({ text: language[id], replacements, placeholder })
     : language[id];
