@@ -1,5 +1,4 @@
 import { SyntheticEvent } from 'react';
-import { useStore } from '../store/Store';
 import { getText, LanguageResourceIds } from '../utils/Text';
 
 interface FormButtonConfig {
@@ -7,8 +6,6 @@ interface FormButtonConfig {
 }
 
 const FormButton = ({ onSubmitHandler }: FormButtonConfig) => {
-  const [{ findingRoute }] = useStore();
-
   return (
     <input
       className='submit-button'

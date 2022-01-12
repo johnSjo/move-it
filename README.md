@@ -16,7 +16,7 @@ You will also see any lint errors in the console.
 
 Will start a mock backend running on http://localhost:5000
 It's just a local json file used to simulate a basic backend
-Is used for saving/retrieving offers
+Is used for saving/retrieving offers. There are some offers in the id range 34572-34579 that you can test if you like.
 
 ### `npm run build`
 

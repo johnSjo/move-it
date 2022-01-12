@@ -1,4 +1,4 @@
-import { State, TestResult, ValidatedState, ValidationResult } from '../store/Types';
+import { State, TestResult, ValidationResult } from '../store/Types';
 
 export function removeLeadingZeros(value: number) {
   const string = value.toString();
@@ -42,7 +42,7 @@ const stateSchema: Schema = {
   secondarySpace: (value?: number) => value === undefined || value > -1,
 
   // TODO: we may want to double check these two, since they are related
-  bulkyItems: (value?: string) => true,
+  bulkyItems: () => true,
   numberOfBulkyItems: (value?: number) => value === undefined || value > -1,
 };
 
