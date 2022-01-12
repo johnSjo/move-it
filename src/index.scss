@@ -188,12 +188,20 @@ label {
   margin-bottom: -21px;
 }
 
-.warning::before {
-  content: '[ ';
+.loose {
+  color: #a06611dd;
 }
 
-.warning::after {
-  content: ' ]';
+.warning-icon {
+  display: inline;
+}
+
+.warning-icon img {
+  transform: translateY(2px);
+}
+
+.warning-icon::after {
+  content: ' ';
 }
 
 .route-warning .warning {
@@ -322,8 +330,6 @@ label {
 }
 
 .loading-cover {
-  height: 100vh;
-  width: 100vh;
   position: absolute;
   backdrop-filter: blur(2px);
   background-color: rgba(255, 255, 255, 0.3);

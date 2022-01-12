@@ -21,7 +21,7 @@
     "addressPlaceholder": "Address",
     "specificationFloorSpaceInSqMeter": "Floor space in square meter",
     "invalidFloorSpace": "Floor space needs to be at least 1 sqm",
-    "specificationSecondarySpaceInSqMeter": "Eventual secondary space, attic, storage, etc. in square meter",
+    "specificationSecondarySpaceInSqMeter": "Eventual secondary space, attic, storage, etc. in sqm",
     "specificationBulkyItems": "Eventual bulky items such as piano etc.?",
     "specificationRequirePackagingHelp": "Is packaging help needed?",
     "yes": "Yes",

@@ -1,4 +1,6 @@
 import { getText, LanguageResourceIds } from '../utils/Text';
+import RedWarning from '../assets/images/warning_sign_red.svg';
+import OrangeWarning from '../assets/images/warning_sign_orange.svg';
 
 interface InputWarningConfig {
   readonly id: LanguageResourceIds;
@@ -7,8 +9,20 @@ interface InputWarningConfig {
 }
 
 const InputWarning = ({ id, show = true, loose = false }: InputWarningConfig) => {
-  // TODO: if loose true -> use different style
-  return <>{show ? <div className='warning'>{getText(id)}</div> : ''}</>;
+  return (
+    <>
+      {show ? (
+        <div className={`warning${loose ? ' loose' : ''}`}>
+          <div className='warning-icon red'>
+            <img src={loose ? OrangeWarning : RedWarning} height={15} width={15} />
+          </div>
+          {getText(id)}
+        </div>
+      ) : (
+        ''
+      )}
+    </>
+  );
 };
 
 export default InputWarning;
