@@ -31,6 +31,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "prod": "serve -s build",
     "server": "json-server --watch db.json --port 5000",
     "pretty": "prettier --config '/Users/john/webroot/tools/vs code Prettier config/.prettierrc' --write \"./**/*.{ts,tsx,json,scss}\""
   },
