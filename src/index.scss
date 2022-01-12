@@ -196,6 +196,10 @@ label {
   content: ' ]';
 }
 
+.route-warning .warning {
+  margin: -16px 0px;
+}
+
 .info-section {
   background-color: #d3e4ec;
   display: flex;
@@ -263,19 +267,34 @@ label {
   display: none;
 }
 
+.spinner-container {
+  padding-left: 10px;
+  margin: -15px 0px;
+  display: flex;
+  transform: translateY(-2.5px);
+}
+
 .spinner {
   transform: rotate(-90deg);
-  width: 60px;
-  height: 60px;
+  width: 30px;
+  height: 30px;
 
   .circle {
     stroke-linecap: round;
     stroke-dasharray: 360;
-    stroke-width: 5;
+    stroke-width: 6;
     stroke: #558dab;
     fill: transparent;
-    animation: spin 0.8s ease-in-out 0s normal infinite;
+    animation: spin 1s ease-in-out 0s normal infinite;
   }
+}
+
+.distance-result {
+  font-size: 14px;
+  text-transform: uppercase;
+  padding: 0px 10px;
+  margin: -8px 0px;
+  color: #212d40;
 }
 
 .estimating-spinner {

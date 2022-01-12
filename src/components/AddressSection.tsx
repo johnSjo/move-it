@@ -111,12 +111,24 @@ const AddressSection = () => {
         onAddressChange={onAddressChangeHandler}
       ></AddressInput>
 
-      <span>{distance}</span>
-      <InputWarning show={routeWarning} id={LanguageResourceIds.ROUTE_NOT_FOUND} />
+      {routeWarning ? (
+        <div className='route-warning'>
+          <InputWarning show={routeWarning} id={LanguageResourceIds.ROUTE_NOT_FOUND} />
+        </div>
+      ) : (
+        ''
+      )}
       {findingRoute ? (
-        <svg className='spinner' role='alert' aria-live='assertive'>
-          <circle cx='30' cy='30' r='20' className='circle' />
-        </svg>
+        <div className='spinner-container'>
+          <svg className='spinner' role='alert' aria-live='assertive'>
+            <circle cx='15' cy='15' r='12' className='circle' />
+          </svg>
+        </div>
+      ) : (
+        ''
+      )}
+      {distance !== null ? (
+        <div className='distance-result'>{getText(LanguageResourceIds.DISTANCE_RESULT, [distance])}</div>
       ) : (
         ''
       )}

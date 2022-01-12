@@ -37,13 +37,8 @@ const PriceInformation = () => {
       <div className='info-section'>
         <div className='info-text'>
           <div className='price-info'>
-            <p>
-              {getText(LanguageResourceIds.PRICE_ESTIMATION)} <span>{state.rate}</span>{' '}
-              {getText(LanguageResourceIds.INC_VAT)}
-            </p>
-            <p>
-              {getText(LanguageResourceIds.TOTAL_DISTANCE)} <span>{state.distanceText}</span>
-            </p>
+            <p>{getText(LanguageResourceIds.PRICE_ESTIMATION, [state.rate ?? '[ERROR]'])}</p>
+            <p>{getText(LanguageResourceIds.TOTAL_DISTANCE, [state.distanceText ?? '[ERROR]'])}</p>
           </div>
 
           <div className='contact-info'>

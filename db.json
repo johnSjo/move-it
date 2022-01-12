@@ -103,6 +103,27 @@
       "bulkyItems": "yes",
       "rate": "19 322 kr",
       "id": 34575
+    },
+    {
+      "numberOfBulkyItems": 0,
+      "requirePackagingHelp": true,
+      "invalidProps": [],
+      "addressFrom": "Decembergatan, Göteborg, Sweden",
+      "findingRoute": false,
+      "addressTo": "Tunnelgatan, Stockholm, Sweden",
+      "distance": 472708,
+      "distanceText": "473 km",
+      "startAddress": "Decembergatan, Göteborg, Sweden",
+      "endAddress": "Tunnelgatan, Stockholm, Sweden",
+      "floorSpace": 89,
+      "secondarySpace": 56,
+      "firstName": "JOhn",
+      "lastName": "asdf",
+      "email": "sdf@sdf.se",
+      "phoneNumber": "234",
+      "bulkyItems": "",
+      "rate": "66 545 kr",
+      "id": 34576
     }
   ]
 }

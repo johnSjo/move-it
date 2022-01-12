@@ -18,6 +18,7 @@ export enum LanguageResourceIds {
   ADDRESS_FROM = 'addressFrom',
   ADDRESS_TO = 'addressTo',
   INVALID_ADDRESS = 'invalidAddress',
+  DISTANCE_RESULT = 'distanceResult',
   ADDRESS_PLACEHOLDER = 'addressPlaceholder',
   SPECIFICATION_FLOOR_SPACE_IN_SQ_METER = 'specificationFloorSpaceInSqMeter',
   INVALID_FLOOR_SPACE = 'invalidFloorSpace',
@@ -31,7 +32,6 @@ export enum LanguageResourceIds {
   ROUTE_NOT_FOUND = 'routeNotFound',
   PRICE_INFORMATION = 'priceInformation',
   PRICE_ESTIMATION = 'priceEstimation',
-  INC_VAT = 'incVat',
   TOTAL_DISTANCE = 'totalDistance',
   OFFER_AVAILABLE_90_DAYS = 'offerAvailable90Days',
   QUESTIONS_CONTACT = 'questionsContact',
@@ -51,6 +51,8 @@ export function getText(id: LanguageResourceIds, replacements?: string[], placeh
 
     return '';
   }
+
+  console.log(replacements);
 
   return replacements && replacements.length > 0
     ? replacePlaceHolders({ text: language[id], replacements, placeholder })
