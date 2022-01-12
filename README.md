@@ -1,6 +1,6 @@
 # MoveIT - Offertförfrågan för bohagsflytt
 
-### 'npm i'
+### `npm i`
 
 To install all dependencies
 
