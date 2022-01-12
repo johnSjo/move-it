@@ -8,7 +8,7 @@ interface InputWarningConfig {
 
 const InputWarning = ({ id, show = true, loose = false }: InputWarningConfig) => {
   // TODO: if loose true -> use different style
-  return <>{show ? <div>{getText(id)}</div> : ''}</>;
+  return <>{show ? <div className='warning'>{getText(id)}</div> : ''}</>;
 };
 
 export default InputWarning;

@@ -8,14 +8,16 @@ import SpecificationSummary from './SpecificationSummary';
 
 const OfferSummary = () => {
   return (
-    <div>
+    <div className={'content'}>
       <SectionHeader title={LanguageResourceIds.CONTACTS} />
       <ContactSummary />
       <SectionHeader title={LanguageResourceIds.ADDRESS} />
       <AddressSummary />
       <SectionHeader title={LanguageResourceIds.MOVE_SPECIFICATIONS} />
       <SpecificationSummary />
-      <Link to={RoutePath.ROOT}>{getText(LanguageResourceIds.CHANGE_DATA)}</Link>
+      <Link className='update-form-btn' to={RoutePath.ROOT}>
+        {getText(LanguageResourceIds.CHANGE_DATA)}
+      </Link>
     </div>
   );
 };

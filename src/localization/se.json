@@ -1,7 +1,7 @@
 {
   "language": {
     "formTitle": "Offertförfrågan för bohagsflytt",
-    "offerTitle": "Offertförslag för bohagsflytt",
+    "offerTitle": "Offertförslag %s för bohagsflytt",
     "contacts": "Kontaktuppgifter",
     "address": "Adressuppgifter",
     "moveSpecifications": "Flyttuppgifter",

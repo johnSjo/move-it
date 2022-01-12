@@ -55,43 +55,55 @@ const ContactSection = () => {
   }, [invalidProps]);
 
   return (
-    <div>
-      <label>{getText(LanguageResourceIds.CONTACT_FIRST_NAME)}</label>
-      <input
-        type='text'
-        placeholder={getText(LanguageResourceIds.CONTACT_FIRST_NAME)}
-        value={firstName ?? ''}
-        onChange={onFirstNameChange}
-      ></input>
-      <InputWarning show={invalidFirstName} id={LanguageResourceIds.INVALID_FIST_NAME} />
+    <div className='form-section'>
+      <div className='input-section'>
+        <label>{getText(LanguageResourceIds.CONTACT_FIRST_NAME)}</label>
+        <input
+          className='text-input'
+          type='text'
+          placeholder={getText(LanguageResourceIds.CONTACT_FIRST_NAME)}
+          value={firstName ?? ''}
+          onChange={onFirstNameChange}
+        ></input>
+        <InputWarning show={invalidFirstName} id={LanguageResourceIds.INVALID_FIST_NAME} />
+      </div>
 
-      <label>{getText(LanguageResourceIds.CONTACT_LAST_NAME)}</label>
-      <input
-        type='text'
-        placeholder={getText(LanguageResourceIds.CONTACT_LAST_NAME)}
-        value={lastName ?? ''}
-        onChange={onLastNameChange}
-      ></input>
-      <InputWarning show={invalidLastName} id={LanguageResourceIds.INVALID_LAST_NAME} />
+      <div className='input-section'>
+        <label>{getText(LanguageResourceIds.CONTACT_LAST_NAME)}</label>
+        <input
+          className='text-input'
+          type='text'
+          placeholder={getText(LanguageResourceIds.CONTACT_LAST_NAME)}
+          value={lastName ?? ''}
+          onChange={onLastNameChange}
+        ></input>
+        <InputWarning show={invalidLastName} id={LanguageResourceIds.INVALID_LAST_NAME} />
+      </div>
 
-      <label>{getText(LanguageResourceIds.CONTACT_EMAIL)}</label>
-      <input
-        type='text'
-        placeholder={getText(LanguageResourceIds.CONTACT_EMAIL)}
-        value={email ?? ''}
-        onChange={onEmailChangeHandler}
-      ></input>
-      <InputWarning show={invalidEmail} id={LanguageResourceIds.INVALID_EMAIL} />
+      <div className='input-section'>
+        <label>{getText(LanguageResourceIds.CONTACT_EMAIL)}</label>
+        <input
+          className='text-input'
+          type='text'
+          placeholder={getText(LanguageResourceIds.CONTACT_EMAIL)}
+          value={email ?? ''}
+          onChange={onEmailChangeHandler}
+        ></input>
+        <InputWarning show={invalidEmail} id={LanguageResourceIds.INVALID_EMAIL} />
+      </div>
 
-      <label>{getText(LanguageResourceIds.CONTACT_PHONE_NUMBER)}</label>
-      <input
-        type='text'
-        placeholder={getText(LanguageResourceIds.CONTACT_PHONE_NUMBER)}
-        value={phoneNumber ?? ''}
-        onChange={onPhoneNumberChangeHandler}
-      ></input>
-      <InputWarning show={invalidPhoneNumber} id={LanguageResourceIds.INVALID_PHONE_NUMBER} />
-      <InputWarning show={phoneNumberWarning} id={LanguageResourceIds.CONTACT_PHONE_NUMBER_WARN} loose={true} />
+      <div className='input-section'>
+        <label>{getText(LanguageResourceIds.CONTACT_PHONE_NUMBER)}</label>
+        <input
+          className='text-input'
+          type='text'
+          placeholder={getText(LanguageResourceIds.CONTACT_PHONE_NUMBER)}
+          value={phoneNumber ?? ''}
+          onChange={onPhoneNumberChangeHandler}
+        ></input>
+        <InputWarning show={invalidPhoneNumber} id={LanguageResourceIds.INVALID_PHONE_NUMBER} />
+        <InputWarning show={phoneNumberWarning} id={LanguageResourceIds.CONTACT_PHONE_NUMBER_WARN} loose={true} />
+      </div>
     </div>
   );
 };

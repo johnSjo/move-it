@@ -40,10 +40,10 @@ export enum LanguageResourceIds {
   APPROVE_OFFER = 'approveOffer',
   SQM = 'sqm',
   CHANGE_DATA = 'changeData',
-  ESTIMATING_PRICE = 'estimatingPrice'
+  ESTIMATING_PRICE = 'estimatingPrice',
 }
 
-export function getText(id: LanguageResourceIds) {
+export function getText(id: LanguageResourceIds, replacements?: string[], placeholder?: string) {
   const language = getLanguage();
 
   if (language[id] === undefined) {
@@ -52,5 +52,17 @@ export function getText(id: LanguageResourceIds) {
     return '';
   }
 
-  return language[id];
+  return replacements && replacements.length > 0
+    ? replacePlaceHolders({ text: language[id], replacements, placeholder })
+    : language[id];
+}
+
+interface ReplacePlaceHoldersConfig {
+  readonly text: string;
+  readonly replacements: string[];
+  readonly placeholder?: string;
+}
+
+function replacePlaceHolders({ text, replacements, placeholder = '%s' }: ReplacePlaceHoldersConfig) {
+  return replacements.reduce((updatedText, replacement) => updatedText.replace(placeholder, replacement), text);
 }

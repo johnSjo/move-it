@@ -65,7 +65,7 @@ const OfferForm = () => {
   //   };
 
   return (
-    <form>
+    <form className={'content'}>
       {fetchingRate ? <LoadingCover /> : ''}
       <SectionHeader index={1} title={LanguageResourceIds.CONTACTS} />
       <ContactSection />

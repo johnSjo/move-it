@@ -32,7 +32,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "server": "json-server --watch db.json --port 5000",
-    "pretty": "prettier --config '/Users/john/webroot/tools/vs code Prettier config/.prettierrc' --write \"./**/*.{ts,tsx,json}\""
+    "pretty": "prettier --config '/Users/john/webroot/tools/vs code Prettier config/.prettierrc' --write \"./**/*.{ts,tsx,json,scss}\""
   },
   "eslintConfig": {
     "extends": [

@@ -96,19 +96,21 @@ const AddressSection = () => {
   if (!isLoaded) return <div>{getText(LanguageResourceIds.WAITING_FOR_GOOGLE_API)}</div>;
 
   return (
-    <div>
+    <div className={'form-section'}>
       <AddressInput
         id={AddressField.FROM}
         labelId={LanguageResourceIds.ADDRESS_FROM}
         placeholderId={LanguageResourceIds.ADDRESS_PLACEHOLDER}
         onAddressChange={onAddressChangeHandler}
       ></AddressInput>
+
       <AddressInput
         id={AddressField.TO}
         labelId={LanguageResourceIds.ADDRESS_TO}
         placeholderId={LanguageResourceIds.ADDRESS_PLACEHOLDER}
         onAddressChange={onAddressChangeHandler}
       ></AddressInput>
+
       <span>{distance}</span>
       <InputWarning show={routeWarning} id={LanguageResourceIds.ROUTE_NOT_FOUND} />
       {findingRoute ? (

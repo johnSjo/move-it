@@ -15,38 +15,40 @@ export enum RoutePath {
 function App() {
   return (
     <StoreProvider>
-      <Header />
-      <Routes>
-        <Route
-          path={RoutePath.ROOT}
-          element={
-            <>
-              <Title id={LanguageResourceIds.FORM_TITLE} />
-              <OfferForm />
-            </>
-          }
-        ></Route>
-        <Route path={RoutePath.OFFER} element={<Outlet />}>
+      <div className={'main'}>
+        <Header />
+        <Routes>
           <Route
-            path=':offerId'
+            path={RoutePath.ROOT}
             element={
               <>
-                <Title id={LanguageResourceIds.OFFER_TITLE} />
-                <OfferSummary />
-                <PriceInformation />
+                <Title id={LanguageResourceIds.FORM_TITLE} />
+                <OfferForm />
               </>
             }
           ></Route>
-        </Route>
-        <Route
-          path='*'
-          element={
-            <main style={{ padding: '1rem' }}>
-              <p>There's nothing here!</p>
-            </main>
-          }
-        ></Route>
-      </Routes>
+          <Route path={RoutePath.OFFER} element={<Outlet />}>
+            <Route
+              path=':offerId'
+              element={
+                <>
+                  <Title id={LanguageResourceIds.OFFER_TITLE} />
+                  <OfferSummary />
+                  <PriceInformation />
+                </>
+              }
+            ></Route>
+          </Route>
+          <Route
+            path='*'
+            element={
+              <div style={{ padding: '1rem' }}>
+                <p>There's nothing here!</p>
+              </div>
+            }
+          ></Route>
+        </Routes>
+      </div>
     </StoreProvider>
   );
 }

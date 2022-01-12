@@ -37,14 +37,16 @@ const AddressInput = ({ id, labelId, onAddressChange, placeholderId }: AddressIn
   }, [state.invalidProps]);
 
   return (
-    <div>
+    <div className='input-section'>
       <label>{getText(labelId)}</label>
       <Autocomplete
+        className='autocomplete'
         options={autocompleteOptions}
         restrictions={autocompleteRestrictions}
         onPlaceChanged={onAddressInputPlaceChanged}
       >
         <input
+          className='text-input'
           id={id}
           type='text'
           placeholder={getText(placeholderId)}

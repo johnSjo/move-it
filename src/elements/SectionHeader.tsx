@@ -7,8 +7,8 @@ interface SectionHeaderConfig {
 
 const SectionHeader = ({ index, title }: SectionHeaderConfig) => {
   return (
-    <div>
-      {index ? <div>{index}</div> : ''}
+    <div className='section-header'>
+      {index ? <div className='index'>{index}</div> : ''}
       <h2>{getText(title)}</h2>
     </div>
   );

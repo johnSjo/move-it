@@ -1,7 +1,7 @@
 {
   "language": {
     "formTitle": "Offer request for household move",
-    "offerTitle": "Offer for household move",
+    "offerTitle": "Offer %s for household move",
     "contacts": "Contact information",
     "address": "Address information",
     "moveSpecifications": "Move specifications",

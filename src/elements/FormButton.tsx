@@ -9,7 +9,14 @@ interface FormButtonConfig {
 const FormButton = ({ onSubmitHandler }: FormButtonConfig) => {
   const [{ findingRoute }] = useStore();
 
-  return <input type='button' value={getText(LanguageResourceIds.FORM_SUBMIT)} onClick={onSubmitHandler} />;
+  return (
+    <input
+      className='submit-button'
+      type='button'
+      value={getText(LanguageResourceIds.FORM_SUBMIT)}
+      onClick={onSubmitHandler}
+    />
+  );
 };
 
 export default FormButton;

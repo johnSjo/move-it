@@ -59,46 +59,58 @@ const SpecificationSection = () => {
   }, [invalidProps]);
 
   return (
-    <div>
-      <label>{getText(LanguageResourceIds.SPECIFICATION_FLOOR_SPACE_IN_SQ_METER)}</label>
-      <input
-        type='number'
-        value={floorSpace !== undefined ? removeLeadingZeros(floorSpace) : ''}
-        onChange={onFloorSpaceChange}
-      ></input>
-      <InputWarning show={invalidFloorSpace} id={LanguageResourceIds.INVALID_FLOOR_SPACE} />
-
-      <label>{getText(LanguageResourceIds.SPECIFICATION_SECONDARY_SPACE_IN_SQ_METER)}</label>
-      <input
-        type='number'
-        value={secondarySpace !== undefined ? removeLeadingZeros(secondarySpace) : ''}
-        onChange={onSecondarySpaceChange}
-      ></input>
-
-      <label>{getText(LanguageResourceIds.SPECIFICATION_BULKY_ITEMS)}</label>
-      <input type='text' value={bulkyItems ?? ''} onChange={onBulkyItemsChange}></input>
-      <span>{numberOfBulkyItems !== undefined && numberOfBulkyItems > 0 ? numberOfBulkyItems : ''}</span>
-
-      <label>{getText(LanguageResourceIds.SPECIFICATION_REQUIRE_PACKAGING_HELP)}</label>
-      <div>
-        <span>{getText(LanguageResourceIds.YES)}</span>
+    <div className={'form-section'}>
+      <div className='input-section'>
+        <label>{getText(LanguageResourceIds.SPECIFICATION_FLOOR_SPACE_IN_SQ_METER)}</label>
         <input
-          type='radio'
-          name='require-packaging'
-          value={RequirePackaging.YES}
-          checked={requirePackagingHelp}
-          onChange={handleRadioChange}
+          className='text-input'
+          type='number'
+          value={floorSpace !== undefined ? removeLeadingZeros(floorSpace) : ''}
+          onChange={onFloorSpaceChange}
+        ></input>
+        <InputWarning show={invalidFloorSpace} id={LanguageResourceIds.INVALID_FLOOR_SPACE} />
+      </div>
+
+      <div className='input-section'>
+        <label>{getText(LanguageResourceIds.SPECIFICATION_SECONDARY_SPACE_IN_SQ_METER)}</label>
+        <input
+          className='text-input'
+          type='number'
+          value={secondarySpace !== undefined ? removeLeadingZeros(secondarySpace) : ''}
+          onChange={onSecondarySpaceChange}
         ></input>
       </div>
-      <div>
-        <span>{getText(LanguageResourceIds.NO)}</span>
-        <input
-          type='radio'
-          name='require-packaging'
-          value={RequirePackaging.NO}
-          checked={!requirePackagingHelp}
-          onChange={handleRadioChange}
-        ></input>
+
+      <div className='input-section'>
+        <label>{getText(LanguageResourceIds.SPECIFICATION_BULKY_ITEMS)}</label>
+        <input className='text-input' type='text' value={bulkyItems ?? ''} onChange={onBulkyItemsChange}></input>
+        <span>{numberOfBulkyItems !== undefined && numberOfBulkyItems > 0 ? numberOfBulkyItems : ''}</span>
+      </div>
+
+      <div className='input-section'>
+        <label>{getText(LanguageResourceIds.SPECIFICATION_REQUIRE_PACKAGING_HELP)}</label>
+        <div className='require-packaging'>
+          <div className='radio'>
+            <span>{getText(LanguageResourceIds.YES)}</span>
+            <input
+              type='radio'
+              name='require-packaging'
+              value={RequirePackaging.YES}
+              checked={requirePackagingHelp}
+              onChange={handleRadioChange}
+            ></input>
+          </div>
+          <div className='radio'>
+            <span>{getText(LanguageResourceIds.NO)}</span>
+            <input
+              type='radio'
+              name='require-packaging'
+              value={RequirePackaging.NO}
+              checked={!requirePackagingHelp}
+              onChange={handleRadioChange}
+            ></input>
+          </div>
+        </div>
       </div>
     </div>
   );
