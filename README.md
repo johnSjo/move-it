@@ -1,5 +1,7 @@
 # MoveIT - Offertförfrågan för bohagsflytt
 
+NOTE: for the address fields to work you have to add an active google api key in to the .env file
+
 ### `npm i`
 
 To install all dependencies
