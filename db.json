@@ -166,6 +166,27 @@
       "bulkyItems": "",
       "rate": "13 294 kr",
       "id": 34579
+    },
+    {
+      "numberOfBulkyItems": 2,
+      "requirePackagingHelp": false,
+      "invalidProps": [],
+      "firstName": "John",
+      "lastName": "Sjö",
+      "email": "sdf@asdf.se",
+      "phoneNumber": "234-23 00",
+      "addressFrom": "Dalagatan, Stockholm, Sweden",
+      "findingRoute": false,
+      "addressTo": "Londonviadukten, Stockholm, Sweden",
+      "distance": 5716,
+      "distanceText": "5.7 km",
+      "startAddress": "Dalagatan, Stockholm, Sweden",
+      "endAddress": "Londonviadukten, Stockholm, Sweden",
+      "floorSpace": 23,
+      "secondarySpace": 5,
+      "bulkyItems": "wer, wer",
+      "rate": "6 057 kr",
+      "id": 34580
     }
   ]
 }
